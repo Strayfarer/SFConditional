@@ -78,8 +78,8 @@ component of an NPC. And we're requiring the instigator to carry something.
 
 ### Evaluate Question For Object
 
-After having done the setup above, you can add the component to an actor of your choice,
-and pick another component on the same actor:
+After having done the setup above, you can drag the variable into your graph, and call `Evaluate(EvaluationContext)` on it,
+assigning an object to test and an optional instigator (which might be mandatory for some conditionals though!):
 
 [<p align="center"><img src="./Docs/Evaluate.png"/></p>](./Docs/Picking.png)
 
