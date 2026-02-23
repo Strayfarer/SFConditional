@@ -6,7 +6,9 @@
 FSFConditionalAnswer USFConditional_Logic_Not::EvaluateInternal_Implementation(const FSFConditionalEvaluationContext& EvaluationContext)
 {
 	const FSFConditionalAnswer Answer = Condition->Evaluate(EvaluationContext);
-	return { !Answer.GetBinaryAnswer(), 1.f - Answer.GetFuzzyAnswer() };
+	return Answer.IsError()
+		? SF::Conditional::Answer::Error::HasChildWithRuntimeError()
+		: SF::Conditional::Answer::Create(!Answer.GetBinaryAnswer(), 1.f - Answer.GetFuzzyAnswer());
 }
 
 FInt32Range USFConditional_Logic_Not::GetAllowedChildrenNumRange_Implementation() const

@@ -5,6 +5,7 @@
 
 FSFConditionalAnswer USFConditional_Logic_MultiCombine::EvaluateInternal_Implementation(const FSFConditionalEvaluationContext& EvaluationContext)
 {
+	bool bHadError = false;
 	bool bBinaryAnswer = true;
 	float FuzzyAnswer = 1.f;
 	float AccumulatedFuzzyAnswer = 0.f;
@@ -14,6 +15,12 @@ FSFConditionalAnswer USFConditional_Logic_MultiCombine::EvaluateInternal_Impleme
 	{
 		const FSFConditionalAnswer& Answer =
 			CollectedAnswers.Add_GetRef(Condition->Evaluate(EvaluationContext));
+		
+		if (Answer.IsError())
+		{
+			bHadError = true;
+			continue;
+		}
 		
 		switch (AnswerCombineRuleBinary)
 		{
@@ -29,7 +36,9 @@ FSFConditionalAnswer USFConditional_Logic_MultiCombine::EvaluateInternal_Impleme
 		case ESFCombineRuleFuzzy::Percentile: FuzzyAnswer = CollectedAnswers[Conditions.Num() / 2].GetFuzzyAnswer(); break;
 	}
 
-	return { bBinaryAnswer, FuzzyAnswer };
+	return bHadError 
+		? SF::Conditional::Answer::Error::HasChildWithRuntimeError()
+		: SF::Conditional::Answer::Create(bBinaryAnswer, FuzzyAnswer);
 }
 
 FInt32Range USFConditional_Logic_MultiCombine::GetAllowedChildrenNumRange_Implementation() const

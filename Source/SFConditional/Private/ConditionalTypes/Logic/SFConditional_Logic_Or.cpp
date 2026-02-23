@@ -5,12 +5,21 @@
 
 FSFConditionalAnswer USFConditional_Logic_Or::EvaluateInternal_Implementation(const FSFConditionalEvaluationContext& EvaluationContext)
 {
+	bool bHadError = false;
 	bool bBinaryAnswer = false;
 	for (USFConditional* Predicate : Conditions)
 	{
-		bBinaryAnswer |= Predicate->Evaluate(EvaluationContext).GetBinaryAnswer();
+		const FSFConditionalAnswer Answer = Predicate->Evaluate(EvaluationContext);
+		if (Answer.IsError())
+		{
+			bHadError = true;
+			continue;
+		}
+		bBinaryAnswer |= Answer.GetBinaryAnswer();
 	}
-	return SF::Conditional::Answer::FromBool(bBinaryAnswer);
+	return bHadError 
+		? SF::Conditional::Answer::Error::HasChildWithRuntimeError()
+		: SF::Conditional::Answer::FromBool(bBinaryAnswer);
 }
 
 FInt32Range USFConditional_Logic_Or::GetAllowedChildrenNumRange_Implementation() const

@@ -31,6 +31,11 @@ FSFConditionalAnswer USFConditionalBlueprintFunctionLibrary::Answer_No()
 	return SF::Conditional::Answer::No();
 }
 
+FSFConditionalAnswer USFConditionalBlueprintFunctionLibrary::Answer_Error_HasChildWithRuntimeError()
+{
+	return SF::Conditional::Answer::Error::HasChildWithRuntimeError();
+}
+
 FSFConditionalAnswer USFConditionalBlueprintFunctionLibrary::Answer_Error_NoPlayerController()
 {
 	return SF::Conditional::Answer::Error::NoPlayerController();

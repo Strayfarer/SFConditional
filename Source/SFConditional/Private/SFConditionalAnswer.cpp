@@ -69,6 +69,11 @@ const FSFConditionalAnswer& SF::Conditional::Answer::Error::HasInvalidChild()
 	SF_CONDITIONAL_IMPL_ERROR("Has invalid child");
 }
 
+const FSFConditionalAnswer& SF::Conditional::Answer::Error::HasChildWithRuntimeError()
+{
+	SF_CONDITIONAL_IMPL_ERROR("Has child with runtime error");
+}
+
 const FSFConditionalAnswer& SF::Conditional::Answer::Error::NoPlayerController()
 {
 	SF_CONDITIONAL_IMPL_ERROR("Could not find valid player controller");

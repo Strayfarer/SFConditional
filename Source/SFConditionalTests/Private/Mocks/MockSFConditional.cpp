@@ -31,3 +31,9 @@ TArray<USFConditional*> UMockSFConditional::GetImmediateChildren_Implementation(
 {
 	return Children;
 }
+
+const FSFConditionalAnswer& SF::Conditional::Answer::Error::Mock()
+{
+	static FSFConditionalAnswer Instance = FromErrorMsg(FName("Mock"));
+	return Instance;
+}

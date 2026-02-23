@@ -7,6 +7,9 @@
 #include "ConditionalTypes/Utility/SFConditional_Utility_AlwaysFalse.h"
 #include "ConditionalTypes/Utility/SFConditional_Utility_AlwaysTrue.h"
 #include "Mocks/MockObject.h"
+#include "Mocks/MockSFConditional.h"
+
+using namespace SF::Conditional;
 
 BEGIN_DEFINE_SPEC(FConditionalTypeLogicNotSpec, "SF.Conditional.Types.Logic.Not", EAutomationTestFlags_ApplicationContextMask | EAutomationTestFlags::ProductFilter)
 	TObjectPtr<USFConditional_Logic_Not> Sut = nullptr;
@@ -43,6 +46,17 @@ void FConditionalTypeLogicNotSpec::Define()
 			Sut->TryAddChild(NewObject<USFConditional_Utility_AlwaysTrue>());
 			const bool bCouldAddSecondChild = Sut->TryAddChild(NewObject<USFConditional_Utility_AlwaysTrue>());
 			TestFalse("Could Add Second Child", bCouldAddSecondChild);
+		});
+	});
+	Describe("with a child yielding a runtime error", [this]
+	{
+		It("should yield HasChildWithRuntimeError error state", [this]
+		{
+			Sut->TryAddChild(NewObject<USFConditional_Utility_AlwaysTrue>());
+			auto* RuntimeErrorConditional = NewObject<UMockSFConditional>();
+			RuntimeErrorConditional->Answer = Answer::Error::Mock();
+			Sut->TryAddChild(RuntimeErrorConditional);
+			TestEqual("Conditional Answer", Sut->EvaluateObject(Object), Answer::Error::HasChildWithRuntimeError());
 		});
 	});
 }

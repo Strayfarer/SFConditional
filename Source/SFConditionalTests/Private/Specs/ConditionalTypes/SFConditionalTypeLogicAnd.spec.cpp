@@ -7,6 +7,7 @@
 #include "ConditionalTypes/Utility/SFConditional_Utility_AlwaysTrue.h"
 #include "Misc/AutomationTest.h"
 #include "Mocks/MockObject.h"
+#include "Mocks/MockSFConditional.h"
 
 using namespace SF::Conditional;
 
@@ -55,6 +56,17 @@ void FConditionalTypeLogicAndSpec::Define()
 		{
 			Sut->TryAddChild(NewObject<USFConditional_Utility_AlwaysTrue>());
 			TestEqual("Conditional Answer", Sut->EvaluateObject(Object), Answer::Error::NumChildrenUnsupported());
+		});
+	});
+	Describe("with a child yielding a runtime error", [this]
+	{
+		It("should yield HasChildWithRuntimeError error state", [this]
+		{
+			Sut->TryAddChild(NewObject<USFConditional_Utility_AlwaysTrue>());
+			auto* RuntimeErrorConditional = NewObject<UMockSFConditional>();
+			RuntimeErrorConditional->Answer = Answer::Error::Mock();
+			Sut->TryAddChild(RuntimeErrorConditional);
+			TestEqual("Conditional Answer", Sut->EvaluateObject(Object), Answer::Error::HasChildWithRuntimeError());
 		});
 	});
 }

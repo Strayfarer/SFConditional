@@ -79,6 +79,7 @@ namespace SF::Conditional::Answer
 		
 		SFCONDITIONAL_API const FSFConditionalAnswer& NumChildrenUnsupported();
 		SFCONDITIONAL_API const FSFConditionalAnswer& HasInvalidChild();
+		SFCONDITIONAL_API const FSFConditionalAnswer& HasChildWithRuntimeError();
 		
 		SFCONDITIONAL_API const FSFConditionalAnswer& NoPlayerController();
 		SFCONDITIONAL_API const FSFConditionalAnswer& NoViewport();

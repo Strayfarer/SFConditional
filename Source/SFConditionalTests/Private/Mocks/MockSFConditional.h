@@ -41,3 +41,8 @@ protected:
 	virtual TArray<USFConditional*> GetImmediateChildren_Implementation() const override;
 	// --
 };
+
+namespace SF::Conditional::Answer::Error
+{
+	const FSFConditionalAnswer& Mock();
+}

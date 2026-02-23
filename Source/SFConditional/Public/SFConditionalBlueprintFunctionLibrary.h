@@ -45,6 +45,9 @@ public:
 	UFUNCTION(BlueprintCallable, BlueprintPure, Category="Conditional|Answer", meta=(DisplayName="Make Conditional Answer - No"))
 	static FSFConditionalAnswer Answer_No();
 
+	UFUNCTION(BlueprintCallable, BlueprintPure, Category="Conditional|Answer|Error", meta=(DisplayName="Make Conditional Error - Has Child With Runtime Error"))
+	static FSFConditionalAnswer Answer_Error_HasChildWithRuntimeError();
+
 	UFUNCTION(BlueprintCallable, BlueprintPure, Category="Conditional|Answer|Error", meta=(DisplayName="Make Conditional Error - No Player Controller"))
 	static FSFConditionalAnswer Answer_Error_NoPlayerController();
 
