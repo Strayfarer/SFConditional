@@ -6,16 +6,18 @@
 FSFConditionalAnswer USFConditional_Area_WorldDistanceRadius::EvaluateInternal_Implementation(
 	const FSFConditionalEvaluationContext& EvaluationContext)
 {
+	using namespace SF::Conditional;
+	
 	const TOptional<FTransform> EvaluatedLocation = EvaluationContext.TryGetTestObjectTransform();
 	if (!EvaluatedLocation.IsSet())
 	{
-		return SF::Conditional::Answer::Error::TestObject::NoTransformProvider();
+		return Answer::Error::TestObject::NoTransformProvider(EvaluationContext.GetTestObject());
 	}
 	
 	const TOptional<FTransform> InstigatorLocation = EvaluationContext.TryGetInstigatorTransform();
 	if (!InstigatorLocation.IsSet())
 	{
-		return SF::Conditional::Answer::Error::Instigator::NoTransformProvider();
+		return Answer::Error::Instigator::NoTransformProvider(EvaluationContext.GetInstigator());
 	}
 	
 	const float Dist = FVector::Dist(

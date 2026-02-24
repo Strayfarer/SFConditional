@@ -49,40 +49,40 @@ public:
 	static FSFConditionalAnswer Answer_Error_HasChildWithRuntimeError();
 
 	UFUNCTION(BlueprintCallable, BlueprintPure, Category="Conditional|Answer|Error", meta=(DisplayName="Make Conditional Error - No Player Controller"))
-	static FSFConditionalAnswer Answer_Error_NoPlayerController();
+	static FSFConditionalAnswer Answer_Error_NoPlayerController(const UWorld* World);
 
 	UFUNCTION(BlueprintCallable, BlueprintPure, Category="Conditional|Answer|Error", meta=(DisplayName="Make Conditional Error - No Viewport"))
-	static FSFConditionalAnswer Answer_Error_NoViewport();
+	static FSFConditionalAnswer Answer_Error_NoViewport(const APlayerController* Pc);
 
 	UFUNCTION(BlueprintCallable, BlueprintPure, Category="Conditional|Answer|Error|TestObject", meta=(DisplayName="Make Conditional Error - TestObject - No Actor"))
-	static FSFConditionalAnswer Answer_Error_TestObject_NoActor();
+	static FSFConditionalAnswer Answer_Error_TestObject_NoActor(const UObject* TestObject);
 
 	UFUNCTION(BlueprintCallable, BlueprintPure, Category="Conditional|Answer|Error|TestObject", meta=(DisplayName="Make Conditional Error - TestObject - No ActorComponent"))
-	static FSFConditionalAnswer Answer_Error_TestObject_NoActorComponent();
+	static FSFConditionalAnswer Answer_Error_TestObject_NoActorComponent(const UObject* TestObject);
 
 	UFUNCTION(BlueprintCallable, BlueprintPure, Category="Conditional|Answer|Error|TestObject", meta=(DisplayName="Make Conditional Error - TestObject - No SceneComponent"))
-	static FSFConditionalAnswer Answer_Error_TestObject_NoSceneComponent();
+	static FSFConditionalAnswer Answer_Error_TestObject_NoSceneComponent(const UObject* TestObject);
 
 	UFUNCTION(BlueprintCallable, BlueprintPure, Category="Conditional|Answer|Error|TestObject", meta=(DisplayName="Make Conditional Error - TestObject - No Actor Provider"))
-	static FSFConditionalAnswer Answer_Error_TestObject_NoActorProvider();
+	static FSFConditionalAnswer Answer_Error_TestObject_NoActorProvider(const UObject* TestObject);
 
 	UFUNCTION(BlueprintCallable, BlueprintPure, Category="Conditional|Answer|Error|TestObject", meta=(DisplayName="Make Conditional Error - TestObject - No Transform Provider"))
-	static FSFConditionalAnswer Answer_Error_TestObject_NoTransform();
+	static FSFConditionalAnswer Answer_Error_TestObject_NoTransform(const UObject* TestObject);
 
 	UFUNCTION(BlueprintCallable, BlueprintPure, Category="Conditional|Answer|Error|Instigator", meta=(DisplayName="Make Conditional Error - Instigator - No Actor"))
-	static FSFConditionalAnswer Answer_Error_Instigator_NoActor();
+	static FSFConditionalAnswer Answer_Error_Instigator_NoActor(const UObject* Instigator);
 
 	UFUNCTION(BlueprintCallable, BlueprintPure, Category="Conditional|Answer|Error|Instigator", meta=(DisplayName="Make Conditional Error - Instigator - No ActorComponent"))
-	static FSFConditionalAnswer Answer_Error_Instigator_NoActorComponent();
+	static FSFConditionalAnswer Answer_Error_Instigator_NoActorComponent(const UObject* Instigator);
 
 	UFUNCTION(BlueprintCallable, BlueprintPure, Category="Conditional|Answer|Error|Instigator", meta=(DisplayName="Make Conditional Error - Instigator - No SceneComponent"))
-	static FSFConditionalAnswer Answer_Error_Instigator_NoSceneComponent();
+	static FSFConditionalAnswer Answer_Error_Instigator_NoSceneComponent(const UObject* Instigator);
 
 	UFUNCTION(BlueprintCallable, BlueprintPure, Category="Conditional|Answer|Error|Instigator", meta=(DisplayName="Make Conditional Error - Instigator - No Actor Provider"))
-	static FSFConditionalAnswer Answer_Error_Instigator_NoActorProvider();
+	static FSFConditionalAnswer Answer_Error_Instigator_NoActorProvider(const UObject* Instigator);
 
 	UFUNCTION(BlueprintCallable, BlueprintPure, Category="Conditional|Answer|Error|Instigator", meta=(DisplayName="Make Conditional Error - Instigator - No Transform Provider"))
-	static FSFConditionalAnswer Answer_Error_Instigator_NoTransform();
+	static FSFConditionalAnswer Answer_Error_Instigator_NoTransform(const UObject* Instigator);
 	
 	// Getters
 

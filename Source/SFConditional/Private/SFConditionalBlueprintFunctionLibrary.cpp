@@ -36,64 +36,64 @@ FSFConditionalAnswer USFConditionalBlueprintFunctionLibrary::Answer_Error_HasChi
 	return SF::Conditional::Answer::Error::HasChildWithRuntimeError();
 }
 
-FSFConditionalAnswer USFConditionalBlueprintFunctionLibrary::Answer_Error_NoPlayerController()
+FSFConditionalAnswer USFConditionalBlueprintFunctionLibrary::Answer_Error_NoPlayerController(const UWorld* World)
 {
-	return SF::Conditional::Answer::Error::NoPlayerController();
+	return SF::Conditional::Answer::Error::NoPlayerController(World);
 }
 
-FSFConditionalAnswer USFConditionalBlueprintFunctionLibrary::Answer_Error_NoViewport()
+FSFConditionalAnswer USFConditionalBlueprintFunctionLibrary::Answer_Error_NoViewport(const APlayerController* Pc)
 {
-	return SF::Conditional::Answer::Error::NoViewport();
+	return SF::Conditional::Answer::Error::NoViewport(Pc);
 }
 
-FSFConditionalAnswer USFConditionalBlueprintFunctionLibrary::Answer_Error_TestObject_NoActor()
+FSFConditionalAnswer USFConditionalBlueprintFunctionLibrary::Answer_Error_TestObject_NoActor(const UObject* TestObject)
 {
-	return SF::Conditional::Answer::Error::TestObject::NoActor();
+	return SF::Conditional::Answer::Error::TestObject::NoActor(TestObject);
 }
 
-FSFConditionalAnswer USFConditionalBlueprintFunctionLibrary::Answer_Error_TestObject_NoActorComponent()
+FSFConditionalAnswer USFConditionalBlueprintFunctionLibrary::Answer_Error_TestObject_NoActorComponent(const UObject* TestObject)
 {
-	return SF::Conditional::Answer::Error::TestObject::NoActorComponent();
+	return SF::Conditional::Answer::Error::TestObject::NoActorComponent(TestObject);
 }
 
-FSFConditionalAnswer USFConditionalBlueprintFunctionLibrary::Answer_Error_TestObject_NoSceneComponent()
+FSFConditionalAnswer USFConditionalBlueprintFunctionLibrary::Answer_Error_TestObject_NoSceneComponent(const UObject* TestObject)
 {
-	return SF::Conditional::Answer::Error::TestObject::NoSceneComponent();
+	return SF::Conditional::Answer::Error::TestObject::NoSceneComponent(TestObject);
 }
 
-FSFConditionalAnswer USFConditionalBlueprintFunctionLibrary::Answer_Error_TestObject_NoActorProvider()
+FSFConditionalAnswer USFConditionalBlueprintFunctionLibrary::Answer_Error_TestObject_NoActorProvider(const UObject* TestObject)
 {
-	return SF::Conditional::Answer::Error::TestObject::NoActorProvider();
+	return SF::Conditional::Answer::Error::TestObject::NoActorProvider(TestObject);
 }
 
-FSFConditionalAnswer USFConditionalBlueprintFunctionLibrary::Answer_Error_TestObject_NoTransform()
+FSFConditionalAnswer USFConditionalBlueprintFunctionLibrary::Answer_Error_TestObject_NoTransform(const UObject* TestObject)
 {
-	return SF::Conditional::Answer::Error::TestObject::NoTransformProvider();
+	return SF::Conditional::Answer::Error::TestObject::NoTransformProvider(TestObject);
 }
 
-FSFConditionalAnswer USFConditionalBlueprintFunctionLibrary::Answer_Error_Instigator_NoActor()
+FSFConditionalAnswer USFConditionalBlueprintFunctionLibrary::Answer_Error_Instigator_NoActor(const UObject* Instigator)
 {
-	return SF::Conditional::Answer::Error::Instigator::NoActor();
+	return SF::Conditional::Answer::Error::Instigator::NoActor(Instigator);
 }
 
-FSFConditionalAnswer USFConditionalBlueprintFunctionLibrary::Answer_Error_Instigator_NoActorComponent()
+FSFConditionalAnswer USFConditionalBlueprintFunctionLibrary::Answer_Error_Instigator_NoActorComponent(const UObject* Instigator)
 {
-	return SF::Conditional::Answer::Error::Instigator::NoActorComponent();
+	return SF::Conditional::Answer::Error::Instigator::NoActorComponent(Instigator);
 }
 
-FSFConditionalAnswer USFConditionalBlueprintFunctionLibrary::Answer_Error_Instigator_NoSceneComponent()
+FSFConditionalAnswer USFConditionalBlueprintFunctionLibrary::Answer_Error_Instigator_NoSceneComponent(const UObject* Instigator)
 {
-	return SF::Conditional::Answer::Error::Instigator::NoSceneComponent();
+	return SF::Conditional::Answer::Error::Instigator::NoSceneComponent(Instigator);
 }
 
-FSFConditionalAnswer USFConditionalBlueprintFunctionLibrary::Answer_Error_Instigator_NoActorProvider()
+FSFConditionalAnswer USFConditionalBlueprintFunctionLibrary::Answer_Error_Instigator_NoActorProvider(const UObject* Instigator)
 {
-	return SF::Conditional::Answer::Error::Instigator::NoActorProvider();
+	return SF::Conditional::Answer::Error::Instigator::NoActorProvider(Instigator);
 }
 
-FSFConditionalAnswer USFConditionalBlueprintFunctionLibrary::Answer_Error_Instigator_NoTransform()
+FSFConditionalAnswer USFConditionalBlueprintFunctionLibrary::Answer_Error_Instigator_NoTransform(const UObject* Instigator)
 {
-	return SF::Conditional::Answer::Error::Instigator::NoTransformProvider();
+	return SF::Conditional::Answer::Error::Instigator::NoTransformProvider(Instigator);
 }
 
 bool USFConditionalBlueprintFunctionLibrary::Answer_GetBinaryAnswer(const FSFConditionalAnswer& Answer)

@@ -6,6 +6,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
+- added object context to selected runtime error constructors, so it's
+easier to understand if an specific object causes the issue
 - implemented that conditionals with children answer with the new 
 `HasChildWithRuntimeError` when any child answers with error
 

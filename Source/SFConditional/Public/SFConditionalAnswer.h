@@ -81,26 +81,26 @@ namespace SF::Conditional::Answer
 		SFCONDITIONAL_API const FSFConditionalAnswer& HasInvalidChild();
 		SFCONDITIONAL_API const FSFConditionalAnswer& HasChildWithRuntimeError();
 		
-		SFCONDITIONAL_API const FSFConditionalAnswer& NoPlayerController();
-		SFCONDITIONAL_API const FSFConditionalAnswer& NoViewport();
+		SFCONDITIONAL_API const FSFConditionalAnswer& NoPlayerController(const UWorld* World);
+		SFCONDITIONAL_API const FSFConditionalAnswer& NoViewport(const APlayerController* Pc);
 		
 		namespace TestObject
 		{
-			SFCONDITIONAL_API const FSFConditionalAnswer& NoActor();
-			SFCONDITIONAL_API const FSFConditionalAnswer& NoActorComponent();
-			SFCONDITIONAL_API const FSFConditionalAnswer& NoSceneComponent();
+			SFCONDITIONAL_API const FSFConditionalAnswer& NoActor(const UObject* TestObject);
+			SFCONDITIONAL_API const FSFConditionalAnswer& NoActorComponent(const UObject* TestObject);
+			SFCONDITIONAL_API const FSFConditionalAnswer& NoSceneComponent(const UObject* TestObject);
 			
-			SFCONDITIONAL_API const FSFConditionalAnswer& NoActorProvider();
-			SFCONDITIONAL_API const FSFConditionalAnswer& NoTransformProvider();
+			SFCONDITIONAL_API const FSFConditionalAnswer& NoActorProvider(const UObject* TestObject);
+			SFCONDITIONAL_API const FSFConditionalAnswer& NoTransformProvider(const UObject* TestObject);
 		}
 		namespace Instigator
 		{
-			SFCONDITIONAL_API const FSFConditionalAnswer& NoActor();
-			SFCONDITIONAL_API const FSFConditionalAnswer& NoActorComponent();
-			SFCONDITIONAL_API const FSFConditionalAnswer& NoSceneComponent();
+			SFCONDITIONAL_API const FSFConditionalAnswer& NoActor(const UObject* TestObject);
+			SFCONDITIONAL_API const FSFConditionalAnswer& NoActorComponent(const UObject* TestObject);
+			SFCONDITIONAL_API const FSFConditionalAnswer& NoSceneComponent(const UObject* TestObject);
 			
-			SFCONDITIONAL_API const FSFConditionalAnswer& NoActorProvider();
-			SFCONDITIONAL_API const FSFConditionalAnswer& NoTransformProvider();
+			SFCONDITIONAL_API const FSFConditionalAnswer& NoActorProvider(const UObject* TestObject);
+			SFCONDITIONAL_API const FSFConditionalAnswer& NoTransformProvider(const UObject* TestObject);
 		}
 	}
 }

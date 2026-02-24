@@ -32,7 +32,7 @@ FSFConditionalAnswer USFConditional_Actor_HasComponent::EvaluateInternal_Impleme
 		});
 		return Answer::FromBool(Result != nullptr);
 	}
-	return Answer::Error::TestObject::NoActorProvider();
+	return Answer::Error::TestObject::NoActorProvider(EvaluationContext.GetTestObject());
 }
 
 FString USFConditional_Actor_HasComponent::CreateConfigurationDebugString_Implementation() const

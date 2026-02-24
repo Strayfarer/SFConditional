@@ -9,10 +9,12 @@
 FSFConditionalAnswer USFConditional_Area_ScreenBox::EvaluateInternal_Implementation(
 	const FSFConditionalEvaluationContext& EvaluationContext)
 {
+	using namespace SF::Conditional;
+	
 	const APlayerController* Pc = UGameplayStatics::GetPlayerController(EvaluationContext.GetWorld(), 0);
 	if (!Pc || !Pc->GetLocalPlayer())
 	{
-		return SF::Conditional::Answer::Error::NoPlayerController();
+		return Answer::Error::NoPlayerController(EvaluationContext.GetWorld());
 	}
 
 	// Get screen size
@@ -20,20 +22,20 @@ FSFConditionalAnswer USFConditional_Area_ScreenBox::EvaluateInternal_Implementat
 	Pc->GetViewportSize(ViewportX, ViewportY);
 	if (ViewportX <= 0 || ViewportY <= 0)
 	{
-		return SF::Conditional::Answer::Error::NoViewport();
+		return Answer::Error::NoViewport(Pc);
 	}
 
 	const TOptional<FTransform> EvaluatedTransform = EvaluationContext.TryGetTestObjectTransform();
 	if (!EvaluatedTransform.IsSet())
 	{
-		return SF::Conditional::Answer::Error::TestObject::NoTransformProvider();
+		return Answer::Error::TestObject::NoTransformProvider(EvaluationContext.GetTestObject());
 	}
 
 	// Project world location to screen space. If we're outside screen space, return No.
 	FVector2D ScreenPosition;
 	if (!Pc->ProjectWorldLocationToScreen(EvaluatedTransform->GetLocation(), ScreenPosition))
 	{
-		return SF::Conditional::Answer::No();
+		return Answer::No();
 	}
 
 	const FVector2D ScreenCenter = FVector2D(ViewportX * 0.5f, ViewportY * 0.5f);

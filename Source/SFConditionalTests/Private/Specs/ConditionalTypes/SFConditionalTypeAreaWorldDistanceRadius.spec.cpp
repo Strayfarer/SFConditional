@@ -44,7 +44,7 @@ void FConditionalTypeAreaWorldDistanceRadiusSpec::Define()
 		{
 			TestEqual("Conditional Answer", 
 				Sut->EvaluateObject(TestObjectObject), 
-				Answer::Error::TestObject::NoTransformProvider());
+				Answer::Error::TestObject::NoTransformProvider(TestObjectObject));
 		});
 	});
 	Describe("with no instigator", [this]
@@ -53,7 +53,7 @@ void FConditionalTypeAreaWorldDistanceRadiusSpec::Define()
 		{
 			TestEqual("Conditional Answer", 
 				Sut->Evaluate({ TestObjectActor, nullptr }), 
-				Answer::Error::Instigator::NoTransformProvider());
+				Answer::Error::Instigator::NoTransformProvider(nullptr));
 		});
 	});
 	Describe("with UObject instigator", [this]
@@ -62,7 +62,7 @@ void FConditionalTypeAreaWorldDistanceRadiusSpec::Define()
 		{
 			TestEqual("Conditional Answer", 
 				Sut->Evaluate({ TestObjectActor, InstigatorObject }), 
-				Answer::Error::Instigator::NoTransformProvider());
+				Answer::Error::Instigator::NoTransformProvider(InstigatorObject));
 		});
 	});
 	

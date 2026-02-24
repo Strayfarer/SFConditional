@@ -10,5 +10,5 @@ FSFConditionalAnswer USFConditional_Actor_IsTicking::EvaluateInternal_Implementa
 	{
 		return Answer::FromBool(Actor->IsActorTickEnabled());
 	}
-	return Answer::Error::TestObject::NoActorProvider();
+	return Answer::Error::TestObject::NoActorProvider(EvaluationContext.GetTestObject());
 }
