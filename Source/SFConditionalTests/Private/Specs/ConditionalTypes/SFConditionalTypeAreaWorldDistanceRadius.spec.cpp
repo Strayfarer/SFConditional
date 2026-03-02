@@ -4,8 +4,8 @@
 
 #include "ConditionalTypes/Area/SFConditional_Area_WorldDistanceRadius.h"
 #include "Misc/AutomationTest.h"
-#include "Mocks/MockActor.h"
-#include "Mocks/MockObject.h"
+#include "Mocks/SFConditional_MockActor.h"
+#include "Mocks/SFConditional_MockObject.h"
 #include "TestWorld/AutomationTestWorld.h"
 
 using namespace SF::Conditional;
@@ -28,10 +28,10 @@ void FConditionalTypeAreaWorldDistanceRadiusSpec::Define()
 		TestWorld = MakeShared<WeekendUtils::FScopedAutomationTestWorld>("TestWorld");
 		TestWorld->InitializeGame();
 		
-		TestObjectObject = InstigatorObject = NewObject<UMockObject>();
+		TestObjectObject = InstigatorObject = NewObject<USFConditional_MockObject>();
 		
-		TestObjectActor = TestWorld->AsRef().SpawnActor<AMockActor>();
-		InstigatorActor = TestWorld->AsRef().SpawnActor<AMockActor>();
+		TestObjectActor = TestWorld->AsRef().SpawnActor<ASFConditional_MockActor>();
+		InstigatorActor = TestWorld->AsRef().SpawnActor<ASFConditional_MockActor>();
 	});
 	AfterEach([this]
 	{

@@ -4,13 +4,13 @@
 
 #include "CoreMinimal.h"
 #include "UObject/Object.h"
-#include "MockActorComponent.generated.h"
+#include "SFConditional_MockObject.generated.h"
 
 /**
- * Mock actor component used for testing.
+ * Mock object used for testing.
  */
 UCLASS()
-class SFCONDITIONALTESTS_API UMockActorComponent : public UActorComponent
+class USFConditional_MockObject : public UObject
 {
 	GENERATED_BODY()
 };

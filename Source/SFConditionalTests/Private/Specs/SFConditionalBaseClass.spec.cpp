@@ -3,13 +3,13 @@
 #if WITH_AUTOMATION_WORKER
 
 #include "Misc/AutomationTest.h"
-#include "Mocks/MockObject.h"
-#include "Mocks/MockSFConditional.h"
+#include "Mocks/SFConditional_MockObject.h"
+#include "Mocks/SFConditional_MockSFConditional.h"
 
 using namespace SF::Conditional;
 
 BEGIN_DEFINE_SPEC(FConditionalBaseClassSpec, "SF.Conditional.BaseClass", EAutomationTestFlags_ApplicationContextMask | EAutomationTestFlags::ProductFilter)
-	TObjectPtr<UMockSFConditional> Sut = nullptr;
+	TObjectPtr<USFConditional_MockSFConditional> Sut = nullptr;
 	TObjectPtr<UObject> Object = nullptr;
 	FInt32Range ChildRange_OneAllowed = FInt32Range(TRangeBound<int>::Inclusive(1), TRangeBound<int>::Inclusive(1));
 END_DEFINE_SPEC(FConditionalBaseClassSpec)
@@ -18,8 +18,8 @@ void FConditionalBaseClassSpec::Define()
 {
 	BeforeEach([this]
 	{
-		Sut = NewObject<UMockSFConditional>();
-		Object = NewObject<UMockObject>();
+		Sut = NewObject<USFConditional_MockSFConditional>();
+		Object = NewObject<USFConditional_MockObject>();
 	});
 	Describe("evaluated will invalid test object", [this]
 	{

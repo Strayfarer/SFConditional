@@ -4,10 +4,10 @@
 
 #include "ConditionalTypes/Actor/SFConditional_Actor_HasComponent.h"
 #include "Misc/AutomationTest.h"
-#include "Mocks/MockActor.h"
-#include "Mocks/MockActorComponent.h"
-#include "Mocks/MockActorComponentSecond.h"
-#include "Mocks/MockObject.h"
+#include "Mocks/SFConditional_MockActor.h"
+#include "Mocks/SFConditional_MockActorComponent.h"
+#include "Mocks/SFConditional_MockActorComponentSecond.h"
+#include "Mocks/SFConditional_MockObject.h"
 #include "TestWorld/AutomationTestWorld.h"
 
 using namespace SF::Conditional;
@@ -25,8 +25,8 @@ void FConditionalTypeActorHasComponentSpec::Define()
 	BeforeEach([this]
 	{
 		Sut = NewObject<USFConditional_Actor_HasComponent>();
-		Sut->SetComponentClass(UMockActorComponent::StaticClass());
-		Object = NewObject<UMockObject>();
+		Sut->SetComponentClass(USFConditional_MockActorComponent::StaticClass());
+		Object = NewObject<USFConditional_MockObject>();
 	});
 	
 	Describe("with UObject as TestObject", [this]
@@ -43,7 +43,7 @@ void FConditionalTypeActorHasComponentSpec::Define()
 		{
 			TestWorld = MakeShared<WeekendUtils::FScopedAutomationTestWorld>("TestWorld");
 			TestWorld->InitializeGame();
-			Actor = TestWorld->AsRef().SpawnActor<AMockActor>();
+			Actor = TestWorld->AsRef().SpawnActor<ASFConditional_MockActor>();
 		});
 		AfterEach([this]
 		{
@@ -61,7 +61,7 @@ void FConditionalTypeActorHasComponentSpec::Define()
 		{
 			It("should yield answer No", [this]
 			{
-				ActorComponent = Actor->AddComponentByClass(UMockActorComponentSecond::StaticClass(), false, {}, false);
+				ActorComponent = Actor->AddComponentByClass(USFConditional_MockActorComponentSecond::StaticClass(), false, {}, false);
 				TestEqual("Conditional Answer", Sut->EvaluateObject(Actor), Answer::No());
 			});
 		});
@@ -69,7 +69,7 @@ void FConditionalTypeActorHasComponentSpec::Define()
 		{
 			It("should yield answer Yes", [this]
 			{
-				ActorComponent = Actor->AddComponentByClass(UMockActorComponent::StaticClass(), false, {}, false);
+				ActorComponent = Actor->AddComponentByClass(USFConditional_MockActorComponent::StaticClass(), false, {}, false);
 				TestEqual("Conditional Answer", Sut->EvaluateObject(Actor), Answer::Yes());
 			});
 		});

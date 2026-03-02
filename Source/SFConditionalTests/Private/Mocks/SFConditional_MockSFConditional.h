@@ -4,13 +4,13 @@
 
 #include "CoreMinimal.h"
 #include "SFConditional/Public/SFConditional.h"
-#include "MockSFConditional.generated.h"
+#include "SFConditional_MockSFConditional.generated.h"
 
 /**
  * Mock conditional used for testing.
  */
 UCLASS()
-class SFCONDITIONALTESTS_API UMockSFConditional : public USFConditional
+class USFConditional_MockSFConditional : public USFConditional
 {
 	GENERATED_BODY()
 	

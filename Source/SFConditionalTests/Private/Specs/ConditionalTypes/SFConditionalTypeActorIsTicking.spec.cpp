@@ -4,8 +4,8 @@
 
 #include "ConditionalTypes/Actor/SFConditional_Actor_IsTicking.h"
 #include "Misc/AutomationTest.h"
-#include "Mocks/MockActor.h"
-#include "Mocks/MockObject.h"
+#include "Mocks/SFConditional_MockActor.h"
+#include "Mocks/SFConditional_MockObject.h"
 #include "TestWorld/AutomationTestWorld.h"
 
 using namespace SF::Conditional;
@@ -23,7 +23,7 @@ void FConditionalTypesActorIsTickingSpec::Define()
 	BeforeEach([this]
 	{
 		Sut = NewObject<USFConditional_Actor_IsTicking>();
-		Object = NewObject<UMockObject>();
+		Object = NewObject<USFConditional_MockObject>();
 	});
 	
 	Describe("with UObject as TestObject", [this]
@@ -40,7 +40,7 @@ void FConditionalTypesActorIsTickingSpec::Define()
 		{
 			TestWorld = MakeShared<WeekendUtils::FScopedAutomationTestWorld>("TestWorld");
 			TestWorld->InitializeGame();
-			Actor = TestWorld->AsRef().SpawnActor<AMockActor>();
+			Actor = TestWorld->AsRef().SpawnActor<ASFConditional_MockActor>();
 		});
 		AfterEach([this]
 		{

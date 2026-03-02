@@ -4,13 +4,13 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Actor.h"
-#include "MockActor.generated.h"
+#include "SFConditional_MockActor.generated.h"
 
 /**
  * Mock actor used for testing.
  */
 UCLASS()
-class SFCONDITIONALTESTS_API AMockActor : public AActor
+class ASFConditional_MockActor : public AActor
 {
 	GENERATED_BODY()
 };

@@ -6,8 +6,8 @@
 #include "ConditionalTypes/Utility/SFConditional_Utility_AlwaysFalse.h"
 #include "ConditionalTypes/Utility/SFConditional_Utility_AlwaysTrue.h"
 #include "Misc/AutomationTest.h"
-#include "Mocks/MockObject.h"
-#include "Mocks/MockSFConditional.h"
+#include "Mocks/SFConditional_MockObject.h"
+#include "Mocks/SFConditional_MockSFConditional.h"
 
 using namespace SF::Conditional;
 
@@ -21,7 +21,7 @@ void FConditionalTypeLogicAndSpec::Define()
 	BeforeEach([this]
 	{
 		Sut = NewObject<USFConditional_Logic_And>();
-		Object = NewObject<UMockObject>();
+		Object = NewObject<USFConditional_MockObject>();
 	});
 	Describe("with two true children", [this]
 	{
@@ -63,7 +63,7 @@ void FConditionalTypeLogicAndSpec::Define()
 		It("should yield HasChildWithRuntimeError error state", [this]
 		{
 			Sut->TryAddChild(NewObject<USFConditional_Utility_AlwaysTrue>());
-			auto* RuntimeErrorConditional = NewObject<UMockSFConditional>();
+			auto* RuntimeErrorConditional = NewObject<USFConditional_MockSFConditional>();
 			RuntimeErrorConditional->Answer = Answer::Error::Mock();
 			Sut->TryAddChild(RuntimeErrorConditional);
 			TestEqual("Conditional Answer", Sut->EvaluateObject(Object), Answer::Error::HasChildWithRuntimeError());

@@ -4,8 +4,8 @@
 
 #include "SFConditionalEvaluationContext.h"
 #include "Misc/AutomationTest.h"
-#include "Mocks/MockActorComponent.h"
-#include "Mocks/MockObject.h"
+#include "Mocks/SFConditional_MockActorComponent.h"
+#include "Mocks/SFConditional_MockObject.h"
 #include "TestWorld/AutomationTestWorld.h"
 
 BEGIN_DEFINE_SPEC(FConditionalEvaluationContextSpec, "SF.Conditional.EvaluationContext", EAutomationTestFlags_ApplicationContextMask | EAutomationTestFlags::ProductFilter)
@@ -33,7 +33,7 @@ void FConditionalEvaluationContextSpec::Define()
 	{
 		BeforeEach([this]
 		{
-			Object = NewObject<UMockObject>();
+			Object = NewObject<USFConditional_MockObject>();
 			EvaluationContext = FSFConditionalEvaluationContext(Object, nullptr);
 		});
 		It("should yield that context world is equal to object to test world", [this]
@@ -90,7 +90,7 @@ void FConditionalEvaluationContextSpec::Define()
 		BeforeEach([this]
 		{
 			Actor = TestWorld->AsRef().SpawnActor<AActor>();
-			ActorComponent = Actor->AddComponentByClass(UMockActorComponent::StaticClass(), false, {}, false);
+			ActorComponent = Actor->AddComponentByClass(USFConditional_MockActorComponent::StaticClass(), false, {}, false);
 			EvaluationContext = FSFConditionalEvaluationContext(Actor, nullptr);
 		});
 		It("should yield valid TestObject object", [this]
@@ -107,7 +107,7 @@ void FConditionalEvaluationContextSpec::Define()
 		});
 		It("should yield valid TestObject mock actor component", [this]
 		{
-			TestTrue("TestObject ActorComponent", IsValid(EvaluationContext.TryGetTestObjectActorComponent<UMockActorComponent>()));
+			TestTrue("TestObject ActorComponent", IsValid(EvaluationContext.TryGetTestObjectActorComponent<USFConditional_MockActorComponent>()));
 		});
 		It("should yield valid TestObject transform", [this]
 		{
@@ -121,7 +121,7 @@ void FConditionalEvaluationContextSpec::Define()
 		BeforeEach([this]
 		{
 			Actor = TestWorld->AsRef().SpawnActor<AActor>();
-			ActorComponent = Actor->AddComponentByClass(UMockActorComponent::StaticClass(), false, {}, false);
+			ActorComponent = Actor->AddComponentByClass(USFConditional_MockActorComponent::StaticClass(), false, {}, false);
 			EvaluationContext = FSFConditionalEvaluationContext(ActorComponent, nullptr);
 		});
 		It("should yield valid TestObject object", [this]
@@ -138,7 +138,7 @@ void FConditionalEvaluationContextSpec::Define()
 		});
 		It("should yield valid TestObject mock actor component", [this]
 		{
-			TestTrue("TestObject ActorComponent", IsValid(EvaluationContext.TryGetTestObjectActorComponent<UMockActorComponent>()));
+			TestTrue("TestObject ActorComponent", IsValid(EvaluationContext.TryGetTestObjectActorComponent<USFConditional_MockActorComponent>()));
 		});
 		It("should yield valid TestObject transform", [this]
 		{
