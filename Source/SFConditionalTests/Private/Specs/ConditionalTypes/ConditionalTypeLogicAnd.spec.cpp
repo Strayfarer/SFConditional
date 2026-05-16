@@ -1,0 +1,74 @@
+﻿// Copyright Strayfarer & Contributors. Released under the MIT license.
+
+#if WITH_AUTOMATION_WORKER
+
+#include "ConditionalTypes/Logic/Conditional_Logic_And.h"
+#include "ConditionalTypes/Utility/Conditional_Utility_AlwaysFalse.h"
+#include "ConditionalTypes/Utility/Conditional_Utility_AlwaysTrue.h"
+#include "Misc/AutomationTest.h"
+#include "Mocks/Conditional_MockObject.h"
+#include "Mocks/Conditional_MockConditional.h"
+
+using namespace SF::Conditional;
+
+BEGIN_DEFINE_SPEC(FConditionalTypeLogicAndSpec, "SF.Conditional.Types.Logic.And", EAutomationTestFlags_ApplicationContextMask | EAutomationTestFlags::ProductFilter)
+	TObjectPtr<SF::UConditional_Logic_And> Sut = nullptr;
+	TObjectPtr<UObject> Object;
+END_DEFINE_SPEC(FConditionalTypeLogicAndSpec)
+
+void FConditionalTypeLogicAndSpec::Define()
+{
+	BeforeEach([this]
+	{
+		Sut = NewObject<SF::UConditional_Logic_And>();
+		Object = NewObject<UConditional_MockObject>();
+	});
+	Describe("with two true children", [this]
+	{
+		It("should yield a yes answer", [this]
+		{
+			Sut->TryAddChild(NewObject<SF::UConditional_Utility_AlwaysTrue>());
+			Sut->TryAddChild(NewObject<SF::UConditional_Utility_AlwaysTrue>());
+			TestEqual("Conditional Answer", Sut->EvaluateObject(Object), Answer::Yes());
+		});
+	});
+	Describe("with one true, one false child", [this]
+	{
+		It("should yield a no answer", [this]
+		{
+			Sut->TryAddChild(NewObject<SF::UConditional_Utility_AlwaysTrue>());
+			Sut->TryAddChild(NewObject<SF::UConditional_Utility_AlwaysFalse>());
+			TestEqual("Conditional Answer", Sut->EvaluateObject(Object), Answer::No());
+		});
+	});
+	Describe("with two false children", [this]
+	{
+		It("should yield a no answer", [this]
+		{
+			Sut->TryAddChild(NewObject<SF::UConditional_Utility_AlwaysFalse>());
+			Sut->TryAddChild(NewObject<SF::UConditional_Utility_AlwaysFalse>());
+			TestEqual("Conditional Answer", Sut->EvaluateObject(Object), Answer::No());
+		});
+	});
+	Describe("with one child", [this]
+	{
+		It("should yield NumChildrenUnsupported error state", [this]
+		{
+			Sut->TryAddChild(NewObject<SF::UConditional_Utility_AlwaysTrue>());
+			TestEqual("Conditional Answer", Sut->EvaluateObject(Object), Answer::Error::NumChildrenUnsupported());
+		});
+	});
+	Describe("with a child yielding a runtime error", [this]
+	{
+		It("should yield HasChildWithRuntimeError error state", [this]
+		{
+			Sut->TryAddChild(NewObject<SF::UConditional_Utility_AlwaysTrue>());
+			auto* RuntimeErrorConditional = NewObject<UConditional_MockConditional>();
+			RuntimeErrorConditional->Answer = Answer::Error::Mock();
+			Sut->TryAddChild(RuntimeErrorConditional);
+			TestEqual("Conditional Answer", Sut->EvaluateObject(Object), Answer::Error::HasChildWithRuntimeError());
+		});
+	});
+}
+
+#endif WITH_AUTOMATION_WORKER

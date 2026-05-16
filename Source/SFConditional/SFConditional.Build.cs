@@ -7,6 +7,7 @@ public class SFConditional : ModuleRules
 	public SFConditional(ReadOnlyTargetRules target) : base(target)
 	{
 		PCHUsage = PCHUsageMode.UseExplicitOrSharedPCHs;
+		bAllowUETypesInNamespaces = true;
 		
 		PublicDependencyModuleNames.AddRange(
 			[

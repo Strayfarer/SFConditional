@@ -2,7 +2,7 @@
 
 ## Concept
 
-Adds a `USFConditional` base class, which allows designers to easily configure complex
+Adds a `UConditional` base class, which allows designers to easily configure complex
 questions about objects. Answers to Conditional questions return both a binary and fuzzy answer and are thus
 open for threshold-based or weighted answer handling.
 
@@ -61,7 +61,7 @@ Any general feedback and pull-requests are much appreciated!
 
 ### Author Conditional Question
 
-To configure a Conditional question, add a new `SFConditional` property via BP or C++,
+To configure a Conditional question, add a new `SF::UConditional` property via BP or C++,
 expose it to be editable in the editor and compile.
 
 [<p align="center"><img src="./Docs/ConditionalProperty.png" width="50%"/></p>](./Docs/BlueprintDefinition.png)
@@ -83,14 +83,14 @@ assigning an object to test and an optional instigator (which might be mandatory
 
 [<p align="center"><img src="./Docs/Evaluate.png"/></p>](./Docs/Picking.png)
 
-In C++, you can additionally pass in a `FSFConditionalDebugTrace`, to which the conditional evaluation
+In C++, you can additionally pass in a `SF::FConditionalDebugTrace`, to which the conditional evaluation
 will write debug information per conditional, with an option to retrieve an easily readable debug string
 at the end.
 
 ```C++
-FSFConditionalDebugTrace DebugTrace;
+SF::FConditionalDebugTrace DebugTrace;
 
-FSFConditionalAnswer Answer = SearchCondition->Evaluate({ 
+SF::FConditionalAnswer Answer = SearchCondition->Evaluate({ 
     MyCandidateForReceivingItem, // = TestObject
     PlayerPawn,                  // = Instigator
     &DebugTrace                  // optional debug infos
@@ -106,19 +106,19 @@ if (Answer.bBinaryAnswer)
 
 ### Add New Conditional Type
 
-New Conditionals can easily be implemented by deriving a C++ or BP class from `USFConditional`.
+New Conditionals can easily be implemented by deriving a C++ or BP class from `SF::UConditional`.
 In both languages, you need to override the `EvaluateConditional` method:
 
 [<p align="center"><img src="./Docs/Conditional.png"/></p>](./Docs/BlueprintRetrieve.png)
 
 In both languages, you furthermore have the option to override `CreateConfigurationDebugString`,
 in which you can describe the current configuration of your conditional to debug systems such as
-the `FSFConditionalDebugTrace`.
+the `SF::FConditionalDebugTrace`.
 
 ### Conditional Runtime Errors
 
 Conditional evaluations may have additional requirements on the tested object and instigator passed in.
-To express such runtime errors, conditionals may return a `FSFConditionalAnswer` with an error message.
+To express such runtime errors, conditionals may return a `SF::FConditionalAnswer` with an error message.
 
 The `SFConditional` plugin comes with a few predefined error answers. In C++, those can be found in
 the `SF::Conditional::Answer::Error` namespace. For BP the function library exposes the same set
@@ -141,24 +141,24 @@ Contents of `ConditionalTitlePropertyString` will be automagically computed for 
  * Note that the fuzzy answers of the sub-conditionals aren't considered in any way.
  */
 UCLASS(DisplayName="LOGIC - Or")
-class SFCONDITIONAL_API USFConditional_Logic_Or : public USFConditional
+class SFCONDITIONAL_API UConditional_Logic_Or : public UConditional
 {
 	GENERATED_BODY()
 
 protected:
-	// - USFConditional
-	virtual FSFConditionalAnswer EvaluateInternal_Implementation(const FSFConditionalEvaluationContext& EvaluationContext) override;
+	// UConditional
+	virtual FSFConditionalAnswer EvaluateInternal_Implementation(const FConditionalEvaluationContext& EvaluationContext) override;
 	virtual FInt32Range GetAllowedChildrenNumRange_Implementation() const override;
-	virtual TArray<USFConditional*> GetImmediateChildren_Implementation() const override;
+	virtual TArray<UConditional*> GetImmediateChildren_Implementation() const override;
 	virtual FString CreateConfigurationDebugString_Implementation() const override;
 	// --
 
 	/** The conditionals to combine by OR. */
 	UPROPERTY(EditDefaultsOnly, Instanced, meta=(TitleProperty=ConditionalTitlePropertyString))
-	TArray<TObjectPtr<USFConditional>> Conditions = {};
+	TArray<TObjectPtr<UConditional>> Conditions = {};
 };
 ```
-Because `USF_Conditional_Logic_Or` assigns `TitleProperty=ConditionalTitlePropertyString` as meta attribute
+Because `SF::UConditional_Logic_Or` assigns `TitleProperty=ConditionalTitlePropertyString` as meta attribute
 to its `Conditions` property, each child array entry in the editor gets a nice title.
 
 [<p align="center"><img src="./Docs/TitleProperty.png"/></p>](./Docs/BlueprintRetrieve.png)
@@ -166,7 +166,7 @@ to its `Conditions` property, each child array entry in the editor gets a nice t
 ### Gameplay Debugger Integration
 
 Conditionals do have an override to draw debug visualization for themselves (see
-`USFConditional_Area_ScreenBox::VisualizeWithGameplayDebugger` for an example), but the plugin itself **doesn't come
+`SF::UConditional_Area_ScreenBox::VisualizeWithGameplayDebugger` for an example), but the plugin itself **doesn't come
 with a debugger category**, instead you have to build one for your own systems where you use conditionals.
 
 The reason is that Conditionals don't have a global registry or anything a gameplay debugger could draw data from:
