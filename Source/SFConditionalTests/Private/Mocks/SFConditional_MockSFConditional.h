@@ -9,7 +9,7 @@
 /**
  * Mock conditional used for testing.
  */
-UCLASS()
+UCLASS(NotBlueprintType)
 class USFConditional_MockSFConditional : public USFConditional
 {
 	GENERATED_BODY()

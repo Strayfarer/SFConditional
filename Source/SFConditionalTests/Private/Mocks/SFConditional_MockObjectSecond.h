@@ -9,7 +9,7 @@
 /**
  * Mock object used for testing.
  */
-UCLASS()
+UCLASS(NotBlueprintType)
 class USFConditional_MockObjectSecond : public UObject
 {
 	GENERATED_BODY()

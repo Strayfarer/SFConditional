@@ -9,7 +9,7 @@
 /**
  * Mock actor component used for testing.
  */
-UCLASS()
+UCLASS(NotBlueprintType)
 class USFConditional_MockActorComponent : public UActorComponent
 {
 	GENERATED_BODY()

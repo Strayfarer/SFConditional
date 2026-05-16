@@ -9,7 +9,7 @@
 /**
  * Mock actor used for testing.
  */
-UCLASS()
+UCLASS(NotBlueprintType)
 class ASFConditional_MockActor : public AActor
 {
 	GENERATED_BODY()
