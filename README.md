@@ -2,7 +2,7 @@
 
 ## Concept
 
-Adds a `UConditional` base class, which allows designers to easily configure complex
+Adds a `SF::UConditional` base class, which allows designers to easily configure complex
 questions about objects. Answers to Conditional questions return both a binary and fuzzy answer and are thus
 open for threshold-based or weighted answer handling.
 
