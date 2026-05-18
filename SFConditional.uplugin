@@ -1,7 +1,7 @@
 ﻿{
 	"FileVersion": 3,
 	"Version": 2,
-	"VersionName": "2.0",
+	"VersionName": "2.1",
 	"FriendlyName": "Strayfarer | Conditional",
 	"Description": "Polymorphic instanced condition objects giving both a fuzzy and binary answer on evaluation.",
 	"Category": "Gameplay",
