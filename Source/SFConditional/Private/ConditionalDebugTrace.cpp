@@ -9,7 +9,7 @@ void SF::FConditionalDebugTrace::PushConditionalAnswer(const FConditionalAnswer&
 {
 #if !UE_BUILD_SHIPPING
 	Lines.Add(
-		FString::ChrN(IndentLevel * 6, ' ')
+		FString::ChrN(CurrentTreeDepth * 6, ' ')
 		+ CreateConditionalDebugStatusString(Answer, Conditional)
 	);
 #endif

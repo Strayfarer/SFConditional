@@ -35,11 +35,11 @@ namespace SF
 		static FString CreateConditionalDebugStatusString(const FConditionalAnswer& ReferenceAnswer,
 		                                                  const UConditional& Conditional);
 
-		FORCEINLINE void Indent() { IndentLevel++; }
-		FORCEINLINE void Dedent() { IndentLevel = FMath::Max(0, IndentLevel - 1); }
+		FORCEINLINE void BeginChildSection() { CurrentTreeDepth++; }
+		FORCEINLINE void EndChildSection() { CurrentTreeDepth = FMath::Max(0, CurrentTreeDepth - 1); }
 
 		TArray<FString> Lines;
-		int32 IndentLevel = 0;
+		int32 CurrentTreeDepth = 0;
 		bool bHasObjectToTestBeenPushed = false;
 	};
 }

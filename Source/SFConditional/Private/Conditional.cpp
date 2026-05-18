@@ -96,7 +96,7 @@ SF::FConditionalAnswer SF::UConditional::Evaluate(const FConditionalEvaluationCo
 		DebugTrace->PushObjectToTest(*EvaluationContext.GetTestObject());
 		if (GetAllowedChildrenNumRange().GetLowerBoundValue() > 0)
 		{
-			DebugTrace->Indent();
+			DebugTrace->BeginChildSection();
 		}
 	}
 
@@ -105,7 +105,7 @@ SF::FConditionalAnswer SF::UConditional::Evaluate(const FConditionalEvaluationCo
 	
 	if (DebugTrace && GetAllowedChildrenNumRange().GetLowerBoundValue() > 0)
 	{
-		DebugTrace->Dedent();
+		DebugTrace->EndChildSection();
 	}
 	
 	if (bIsInverted)
