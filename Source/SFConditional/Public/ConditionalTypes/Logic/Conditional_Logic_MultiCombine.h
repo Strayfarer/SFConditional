@@ -64,7 +64,7 @@ namespace SF
 		// --
 
 		/** The conditionals to combine. */
-		UPROPERTY(EditDefaultsOnly, Instanced, meta=(TitleProperty=ConditionalTitlePropertyString))
+		UPROPERTY(EditDefaultsOnly, Instanced, NoClear, meta=(NoResetToDefault, ForceShowPluginContent, TitleProperty=ConditionalTitlePropertyString))
 		TArray<TObjectPtr<UConditional>> Conditions = {};
 
 		/** Determines how the binary answers are combined. */

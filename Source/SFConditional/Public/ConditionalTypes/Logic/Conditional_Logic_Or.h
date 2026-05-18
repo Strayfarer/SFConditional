@@ -32,7 +32,7 @@ namespace SF
 		// --
 
 		/** The conditionals to combine by OR. */
-		UPROPERTY(EditDefaultsOnly, Instanced, meta=(TitleProperty=ConditionalTitlePropertyString))
+		UPROPERTY(EditDefaultsOnly, Instanced, NoClear, meta=(NoResetToDefault, ForceShowPluginContent, TitleProperty=ConditionalTitlePropertyString))
 		TArray<TObjectPtr<UConditional>> Conditions = {};
 	};
 }

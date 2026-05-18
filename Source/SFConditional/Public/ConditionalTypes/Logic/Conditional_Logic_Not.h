@@ -32,7 +32,7 @@ namespace SF
 		// --
 
 		/** The conditional to negate. */
-		UPROPERTY(EditDefaultsOnly, Instanced, meta=(TitleProperty=ConditionalTitlePropertyString))
+		UPROPERTY(EditDefaultsOnly, Instanced, NoClear, meta=(NoResetToDefault, ForceShowPluginContent, TitleProperty=ConditionalTitlePropertyString))
 		TObjectPtr<UConditional> Condition = nullptr;
 	};
 }

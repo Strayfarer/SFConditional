@@ -7,8 +7,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
+- Improved editor UX of conditionals that allow children
+
 ## [2.0.0] - 2026-05-16
+
+### Changed
 - moved all types to the SF namespace and removed their SF prefix
+### Added
 - added object context to selected runtime error constructors, so it's
 easier to understand if a specific object causes the issue
 - implemented that conditionals with children answer with the new 
