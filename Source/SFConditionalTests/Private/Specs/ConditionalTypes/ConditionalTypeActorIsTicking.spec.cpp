@@ -51,6 +51,7 @@ void FConditionalTypesActorIsTickingSpec::Define()
 		{
 			It("should yield answer Yes", [this]
 			{
+				Actor->PrimaryActorTick.bCanEverTick = true;
 				Actor->SetActorTickEnabled(true);
 				TestEqual("Conditional Answer", Sut->EvaluateObject(Actor), Answer::Yes());
 			});
