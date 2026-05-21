@@ -146,7 +146,11 @@ FTransform SF::UConditionalBlueprintFunctionLibrary::EvaluationContext_TryGetTes
 UObject* SF::UConditionalBlueprintFunctionLibrary::EvaluationContext_TryGetTestObjectActorComponent(
 	const FConditionalEvaluationContext& EvaluationContext, const TSubclassOf<UActorComponent> ReturnClass)
 {
-	return EvaluationContext.TryGetTestObjectActor()->FindComponentByClass(ReturnClass);
+	if (const AActor* Actor = EvaluationContext.TryGetTestObjectActor())
+	{
+		return Actor->FindComponentByClass(ReturnClass);
+	}
+	return nullptr;
 }
 
 UObject* SF::UConditionalBlueprintFunctionLibrary::EvaluationContext_GetInstigator(
@@ -178,5 +182,9 @@ FTransform SF::UConditionalBlueprintFunctionLibrary::EvaluationContext_TryGetIns
 UObject* SF::UConditionalBlueprintFunctionLibrary::EvaluationContext_TryGetInstigatorActorComponent(
 	const FConditionalEvaluationContext& EvaluationContext, const TSubclassOf<UActorComponent> ReturnClass)
 {
-	return EvaluationContext.TryGetInstigatorActor()->FindComponentByClass(ReturnClass);
+	if (const AActor* Actor = EvaluationContext.TryGetInstigatorActor())
+	{
+		return Actor->FindComponentByClass(ReturnClass);
+	}
+	return nullptr;
 }
