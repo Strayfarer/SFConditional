@@ -46,6 +46,7 @@ FString SF::FConditionalDebugTrace::CreateConditionalDebugStatusString(const FCo
 		static FText FormatTextError = FText::FromString("{Red}{error}, {name}{inverted}{reasoning}");
 		
 		return FText::FormatNamed(FormatTextError,
+			TEXT("error"),     FText::FromString(ReferenceAnswer.GetErrorMessage().ToString()),
 			TEXT("name"),      FText::FromString(Name),
 			TEXT("inverted"),  FText::FromString(Conditional.IsInverted() ? " (inverted)" : ""),
 			TEXT("reasoning"), FText::FromString(" " + Conditional.CreateConfigurationDebugString())
