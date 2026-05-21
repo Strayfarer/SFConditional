@@ -37,4 +37,9 @@ namespace SF
 		UPROPERTY(EditDefaultsOnly)
 		TSubclassOf<UActorComponent> ComponentClass = nullptr;
 	};
+
+	namespace Conditional::Answer::Error
+	{
+		SFCONDITIONAL_API const FConditionalAnswer& NoComponentClassSet();
+	}
 }

@@ -29,6 +29,15 @@ void FConditionalTypeActorHasComponentSpec::Define()
 		Object = NewObject<UConditional_MockObject>();
 	});
 	
+	Describe("with no ComponentClass configured", [this]
+	{
+		It("should yield NoComponentClassSet error state", [this]
+		{
+			Sut->SetComponentClass(nullptr);
+			TestEqual("Conditional Answer", Sut->EvaluateObject(Object), Answer::Error::NoComponentClassSet());
+		});
+	});
+	
 	Describe("with UObject as TestObject", [this]
 	{
 		It("should yield NoActorProvider error state", [this]

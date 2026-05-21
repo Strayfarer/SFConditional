@@ -23,6 +23,12 @@ EDataValidationResult SF::UConditional_Actor_HasComponent::IsDataValid(class FDa
 SF::FConditionalAnswer SF::UConditional_Actor_HasComponent::EvaluateInternal_Implementation(const FConditionalEvaluationContext& EvaluationContext)
 {
 	using namespace SF::Conditional;
+	
+	if (!ComponentClass)
+	{
+		return Answer::Error::NoComponentClassSet();
+	}
+	
 	if (const AActor* Actor = EvaluationContext.TryGetTestObjectActor())
 	{
 		TSet<UActorComponent*> Components = Actor->GetComponents();
@@ -32,10 +38,17 @@ SF::FConditionalAnswer SF::UConditional_Actor_HasComponent::EvaluateInternal_Imp
 		});
 		return Answer::FromBool(Result != nullptr);
 	}
+	
 	return Answer::Error::TestObject::NoActorProvider(EvaluationContext.GetTestObject());
 }
 
 FString SF::UConditional_Actor_HasComponent::CreateConfigurationDebugString_Implementation() const
 {
-	return ComponentClass ? ComponentClass->GetName() : "No component class specified!";
+	return ComponentClass ? ComponentClass->GetName() : "";
+}
+
+const SF::FConditionalAnswer& SF::Conditional::Answer::Error::NoComponentClassSet()
+{
+	static FConditionalAnswer Answer = FromErrorMsg(FString("No ComponentClass configured!"));
+	return Answer;
 }
