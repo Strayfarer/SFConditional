@@ -6,8 +6,12 @@
 SF::FConditionalAnswer SF::UConditional_Logic_MultiCombine::EvaluateInternal_Implementation(const FConditionalEvaluationContext& EvaluationContext)
 {
 	bool bHadError = false;
-	bool bBinaryAnswer = true;
-	float FuzzyAnswer = 1.f;
+	bool bBinaryAnswer = false;
+	switch (AnswerCombineRuleBinary)
+	{
+		case ECombineRuleBinary::And: bBinaryAnswer = true; break;
+		case ECombineRuleBinary::Or:  bBinaryAnswer = false; break;
+	}
 	float AccumulatedFuzzyAnswer = 0.f;
 	TArray<FConditionalAnswer> CollectedAnswers = {};
 	
@@ -30,9 +34,10 @@ SF::FConditionalAnswer SF::UConditional_Logic_MultiCombine::EvaluateInternal_Imp
 		AccumulatedFuzzyAnswer += Answer.GetFuzzyAnswer();
 	}
 
+	float FuzzyAnswer = 0.f;
 	switch (AnswerCombineRuleFuzzy)
 	{
-		case ECombineRuleFuzzy::Mean:		  FuzzyAnswer = AccumulatedFuzzyAnswer / Conditions.Num(); break;
+		case ECombineRuleFuzzy::Mean:		FuzzyAnswer = AccumulatedFuzzyAnswer / Conditions.Num(); break;
 		case ECombineRuleFuzzy::Percentile: FuzzyAnswer = CollectedAnswers[Conditions.Num() / 2].GetFuzzyAnswer(); break;
 	}
 
