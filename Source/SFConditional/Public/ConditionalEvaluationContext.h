@@ -117,7 +117,7 @@ namespace SF
 		UPROPERTY(BlueprintReadWrite, Category="Conditional Evaluation Context", meta=(AllowPrivateAccess=true))
 		TObjectPtr<UObject> Instigator = nullptr;
 
-		FConditionalDebugTrace* OptionalDebugTrace;
+		FConditionalDebugTrace* OptionalDebugTrace = nullptr;
 	};
 
 	////// Template Function Implementations //////
