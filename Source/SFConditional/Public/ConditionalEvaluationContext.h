@@ -29,11 +29,10 @@ namespace SF
 			TestObject(InTestObject),
 			Instigator(InInstigator),
 			OptionalDebugTrace(InOptionalDebugTrace)
-		{
-		}
+		{}
 
 		/** Returns the world of the test object. */
-		FORCEINLINE UWorld* GetWorld() const { return TestObject->GetWorld(); }
+		FORCEINLINE UWorld* GetWorld() const { return TestObject ? TestObject->GetWorld() : nullptr; }
 
 		///// Object To Test /////
 
