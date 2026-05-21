@@ -138,6 +138,10 @@ void SF::UConditional::ForThisAndEachChildDo(const TFunction<void(UConditional*)
 	Work(this);
 	for (UConditional* Child : GetImmediateChildren())
 	{
+		if (!IsValid(Child))
+		{
+			continue;
+		}
 		Child->ForThisAndEachChildDo(Work);
 	}
 }
