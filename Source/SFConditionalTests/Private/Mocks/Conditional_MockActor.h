@@ -13,4 +13,9 @@ UCLASS(NotBlueprintType, Hidden)
 class AConditional_MockActor : public AActor
 {
 	GENERATED_BODY()
+	
+	AConditional_MockActor();
+	
+	UPROPERTY()
+	TObjectPtr<USceneComponent> SceneComponent = nullptr;
 };
