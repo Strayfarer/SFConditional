@@ -37,8 +37,16 @@ SF::FConditionalAnswer SF::UConditional_Logic_MultiCombine::EvaluateInternal_Imp
 	float FuzzyAnswer = 0.f;
 	switch (AnswerCombineRuleFuzzy)
 	{
-		case ECombineRuleFuzzy::Mean:		FuzzyAnswer = AccumulatedFuzzyAnswer / Conditions.Num(); break;
-		case ECombineRuleFuzzy::Percentile: FuzzyAnswer = CollectedAnswers[Conditions.Num() / 2].GetFuzzyAnswer(); break;
+		case ECombineRuleFuzzy::Mean:
+			FuzzyAnswer = AccumulatedFuzzyAnswer / Conditions.Num();
+			break;
+	case ECombineRuleFuzzy::Percentile:
+			Algo::SortBy(CollectedAnswers, [](const FConditionalAnswer& Answer)
+			{
+				return Answer.GetFuzzyAnswer();
+			});
+			FuzzyAnswer = CollectedAnswers[Conditions.Num() / 2].GetFuzzyAnswer();
+			break;
 	}
 
 	return bHadError 
