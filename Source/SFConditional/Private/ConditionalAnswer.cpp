@@ -14,8 +14,11 @@ SF::FConditionalAnswer::FConditionalAnswer(const FName& InErrorMsg)
 
 bool SF::FConditionalAnswer::operator==(const FConditionalAnswer& Other) const
 {
-	return ErrorMessage == Other.ErrorMessage
-		|| (bBinaryAnswer == Other.bBinaryAnswer && FMath::IsNearlyEqual(FuzzyAnswer, Other.FuzzyAnswer));
+	if (!ErrorMessage.IsNone() || !Other.ErrorMessage.IsNone())
+	{
+		return ErrorMessage == Other.ErrorMessage;
+	}
+	return bBinaryAnswer == Other.bBinaryAnswer && FMath::IsNearlyEqual(FuzzyAnswer, Other.FuzzyAnswer);
 }
 
 const SF::FConditionalAnswer& SF::Conditional::Answer::Yes()
