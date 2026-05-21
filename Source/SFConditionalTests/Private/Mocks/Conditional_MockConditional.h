@@ -49,5 +49,6 @@ protected:
 
 namespace SF::Conditional::Answer::Error
 {
-	const FConditionalAnswer& Mock();
+	const FConditionalAnswer& MockA();
+	const FConditionalAnswer& MockB();
 }

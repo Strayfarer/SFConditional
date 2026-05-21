@@ -32,8 +32,14 @@ TArray<SF::UConditional*> UConditional_MockConditional::GetImmediateChildren_Imp
 	return Children;
 }
 
-const SF::FConditionalAnswer& SF::Conditional::Answer::Error::Mock()
+const SF::FConditionalAnswer& SF::Conditional::Answer::Error::MockA()
 {
-	static FConditionalAnswer Instance = FromErrorMsg(FName("Mock"));
+	static FConditionalAnswer Instance = FromErrorMsg(FName("MockA"));
+	return Instance;
+}
+
+const SF::FConditionalAnswer& SF::Conditional::Answer::Error::MockB()
+{
+	static FConditionalAnswer Instance = FromErrorMsg(FName("MockB"));
 	return Instance;
 }

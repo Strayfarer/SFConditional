@@ -64,7 +64,7 @@ void FConditionalTypeLogicAndSpec::Define()
 		{
 			Sut->TryAddChild(NewObject<SF::UConditional_Utility_AlwaysTrue>());
 			auto* RuntimeErrorConditional = NewObject<UConditional_MockConditional>();
-			RuntimeErrorConditional->Answer = Answer::Error::Mock();
+			RuntimeErrorConditional->Answer = Answer::Error::MockA();
 			Sut->TryAddChild(RuntimeErrorConditional);
 			TestEqual("Conditional Answer", Sut->EvaluateObject(Object), Answer::Error::HasChildWithRuntimeError());
 		});

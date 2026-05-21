@@ -186,8 +186,9 @@ void FConditionalTypeLogicMultiCombineSpec::Define()
 		{
 			Sut->TryAddChild(NewObject<SF::UConditional_Utility_AlwaysTrue>());
 			auto* RuntimeErrorConditional = NewObject<UConditional_MockConditional>();
-			RuntimeErrorConditional->Answer = Answer::Error::Mock();
+			RuntimeErrorConditional->Answer = Answer::Error::MockA();
 			Sut->TryAddChild(RuntimeErrorConditional);
+			Sut->TryAddChild(NewObject<SF::UConditional_Utility_AlwaysTrue>());
 			TestEqual("Conditional Answer", Sut->EvaluateObject(Object), Answer::Error::HasChildWithRuntimeError());
 		});
 	});
