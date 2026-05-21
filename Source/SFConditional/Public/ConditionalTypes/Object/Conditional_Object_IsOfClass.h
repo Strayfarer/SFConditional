@@ -73,4 +73,9 @@ namespace SF
 		UPROPERTY(EditDefaultsOnly)
 		bool bTryTestAssociatedActor = false;
 	};
+
+	namespace Conditional::Answer::Error
+	{
+		SFCONDITIONAL_API const FConditionalAnswer& NoClassToCheckForSpecified();
+	}
 }

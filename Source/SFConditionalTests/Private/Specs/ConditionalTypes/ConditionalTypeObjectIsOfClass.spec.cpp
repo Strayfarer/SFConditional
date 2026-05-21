@@ -17,7 +17,15 @@ void FConditionalTypeObjectIsOfClassSpec::Define()
 	BeforeEach([this]
 	{
 		Sut = NewObject<SF::UConditional_Object_IsOfClass>();
-		Object = NewObject<UConditional_MockObject>();
+	});
+	Describe("using no class", [this]
+	{
+		It("should yield NoClassToCheckForSpecified error", [this]
+		{
+			Sut->SetPreLoadedClassToCheckFor(nullptr);
+			Object = NewObject<UConditional_MockObject>();
+			TestEqual("Conditional Answer", Sut->EvaluateObject(Object), SF::Conditional::Answer::Error::NoClassToCheckForSpecified());
+		});
 	});
 	Describe("using pre-loaded class", [this]
 	{

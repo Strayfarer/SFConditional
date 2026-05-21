@@ -49,14 +49,21 @@ void SF::UConditional_Object_IsOfClass::PostEditChangeProperty(struct FPropertyC
 SF::FConditionalAnswer SF::UConditional_Object_IsOfClass::EvaluateInternal_Implementation(const FConditionalEvaluationContext& EvaluationContext)
 {
 	using namespace SF::Conditional;
+	
+	UClass* ClassToCheckFor = ResolveClassToCheckFor();
+	if (!ClassToCheckFor)
+	{
+		return Answer::Error::NoClassToCheckForSpecified();
+	}
+	
 	if (bTryTestAssociatedActor)
 	{
 		if (const AActor* Actor = EvaluationContext.TryGetTestObjectActor())
 		{
-			return Answer::FromBool(Actor->IsA(ResolveClassToCheckFor()));
+			return Answer::FromBool(Actor->IsA(ClassToCheckFor));
 		}
 	}
-	return Answer::FromBool(EvaluationContext.GetTestObject()->IsA(ResolveClassToCheckFor()));
+	return Answer::FromBool(EvaluationContext.GetTestObject()->IsA(ClassToCheckFor));
 }
 
 FString SF::UConditional_Object_IsOfClass::CreateConfigurationDebugString_Implementation() const
@@ -69,4 +76,10 @@ FString SF::UConditional_Object_IsOfClass::CreateConfigurationDebugString_Implem
 UClass* SF::UConditional_Object_IsOfClass::ResolveClassToCheckFor() const
 {
 	return bPreloadClassToCheckFor ? PreLoadedClassToCheckFor.Get() : SyncLoadedClassToCheckFor.LoadSynchronous();
+}
+
+const SF::FConditionalAnswer& SF::Conditional::Answer::Error::NoClassToCheckForSpecified()
+{
+	static FConditionalAnswer Answer = FromErrorMsg(FString("No class to check for configured!"));
+	return Answer;
 }
