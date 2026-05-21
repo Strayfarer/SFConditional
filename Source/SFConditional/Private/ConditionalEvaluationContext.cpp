@@ -3,6 +3,8 @@
 
 #include "ConditionalEvaluationContext.h"
 
+#include "ConditionalLog.h"
+
 AActor* SF::FConditionalEvaluationContext::TryGetTestObjectActor() const
 {
 	if (AActor* Actor = Cast<AActor>(TestObject))
@@ -28,7 +30,11 @@ TOptional<FTransform> SF::FConditionalEvaluationContext::TryGetTestObjectTransfo
 	}
 	if (const auto* ActorComponent = TryGetTestObjectAs<UActorComponent>())
 	{
-		return ActorComponent->GetOwner()->GetTransform();
+		if (const AActor* Owner = ActorComponent->GetOwner())
+		{
+			return Owner->GetTransform();
+		}
+		UE_LOG(LogConditional, VeryVerbose, TEXT("Conditional evaluation context found ActorComponent with invalid Owner!"))
 	}
 	return {};
 }
@@ -58,7 +64,11 @@ TOptional<FTransform> SF::FConditionalEvaluationContext::TryGetInstigatorTransfo
 	}
 	if (const auto* ActorComponent = TryGetInstigatorAs<UActorComponent>())
 	{
-		return ActorComponent->GetOwner()->GetTransform();
+		if (const AActor* Owner = ActorComponent->GetOwner())
+		{
+			return Owner->GetTransform();
+		}
+		UE_LOG(LogConditional, VeryVerbose, TEXT("Conditional evaluation context found ActorComponent with invalid Owner!"))
 	}
 	return {};
 }
