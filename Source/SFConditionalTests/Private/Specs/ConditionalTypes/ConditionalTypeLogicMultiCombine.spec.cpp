@@ -41,11 +41,11 @@ void FConditionalTypeLogicMultiCombineSpec::Define()
 		});
 		Describe("with one true, one false child", [this]
 		{
-			It("should yield a no answer", [this]
+			It("should yield a [false, 0,5] answer", [this]
 			{
 				Sut->TryAddChild(NewObject<SF::UConditional_Utility_AlwaysTrue>());
 				Sut->TryAddChild(NewObject<SF::UConditional_Utility_AlwaysFalse>());
-				TestEqual("Conditional Answer", Sut->EvaluateObject(Object), Answer::No());
+				TestEqual("Conditional Answer", Sut->EvaluateObject(Object), Answer::Create(false, 0.5f));
 			});
 		});
 		Describe("with two false children", [this]
@@ -77,11 +77,11 @@ void FConditionalTypeLogicMultiCombineSpec::Define()
 		});
 		Describe("with one true, one false child", [this]
 		{
-			It("should yield a yes answer", [this]
+			It("should yield a [true, 0,5] answer", [this]
 			{
 				Sut->TryAddChild(NewObject<SF::UConditional_Utility_AlwaysTrue>());
 				Sut->TryAddChild(NewObject<SF::UConditional_Utility_AlwaysFalse>());
-				TestEqual("Conditional Answer", Sut->EvaluateObject(Object), Answer::Yes());
+				TestEqual("Conditional Answer", Sut->EvaluateObject(Object), Answer::Create(true, 0.5f));
 			});
 		});
 		Describe("with two false children", [this]
