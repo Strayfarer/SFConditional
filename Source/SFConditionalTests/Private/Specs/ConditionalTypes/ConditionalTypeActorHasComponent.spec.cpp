@@ -31,9 +31,9 @@ void FConditionalTypeActorHasComponentSpec::Define()
 	
 	Describe("with UObject as TestObject", [this]
 	{
-		It("should yield NoActor error state", [this]
+		It("should yield NoActorProvider error state", [this]
 		{
-			TestEqual("Conditional Answer", Sut->EvaluateObject(Object), Answer::Error::TestObject::NoActor(Object));
+			TestEqual("Conditional Answer", Sut->EvaluateObject(Object), Answer::Error::TestObject::NoActorProvider(Object));
 		});
 	});
 	
