@@ -8,8 +8,8 @@ SF::FConditionalAnswer SF::UConditional_Area_WorldDistanceRadius::EvaluateIntern
 {
 	using namespace SF::Conditional;
 	
-	const TOptional<FTransform> EvaluatedLocation = EvaluationContext.TryGetTestObjectTransform();
-	if (!EvaluatedLocation.IsSet())
+	const TOptional<FTransform> TestLocation = EvaluationContext.TryGetTestObjectTransform();
+	if (!TestLocation.IsSet())
 	{
 		return Answer::Error::TestObject::NoTransformProvider(EvaluationContext.GetTestObject());
 	}
@@ -22,10 +22,14 @@ SF::FConditionalAnswer SF::UConditional_Area_WorldDistanceRadius::EvaluateIntern
 	
 	const float Dist = FVector::Dist(
 		InstigatorLocation.GetValue().GetLocation(),
-		EvaluatedLocation.GetValue().GetLocation());
+		TestLocation.GetValue().GetLocation());
 
 	const bool bBinaryAnswer = Dist <= Radius;
-	const float FuzzyAnswer = bBinaryAnswer ? 1.f - Dist / Radius : 0.f;
+	
+	float FuzzyAnswer = 0.f;
+	if      (!bBinaryAnswer) { FuzzyAnswer = 0.f; }
+	else if (Radius > 0.f)   { FuzzyAnswer = 1.f - Dist / Radius; }
+	else if (Radius == 0.f)  { FuzzyAnswer = 1.f; }
 	
 	return { bBinaryAnswer, FuzzyAnswer };
 }
