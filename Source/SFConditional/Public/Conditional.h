@@ -83,7 +83,10 @@ namespace SF
 
 #if WITH_EDITOR
 		UFUNCTION(BlueprintNativeEvent, Category="Conditional")
-		bool TryAddChild(UConditional* Child);
+		bool CanAddChild(UConditional* Child) const;
+
+		UFUNCTION(BlueprintNativeEvent, Category="Conditional")
+		void AddChild(UConditional* Child);
 
 		UFUNCTION(BlueprintNativeEvent, Category="Conditional")
 		bool TryRemoveChild(UConditional* Child);

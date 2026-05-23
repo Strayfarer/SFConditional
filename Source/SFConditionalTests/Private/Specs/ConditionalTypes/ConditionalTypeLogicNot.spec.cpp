@@ -27,25 +27,25 @@ void FConditionalTypeLogicNotSpec::Define()
 	{
 		It("should yield a no answer", [this]
 		{
-			Sut->TryAddChild(NewObject<SF::UConditional_Utility_AlwaysTrue>());
-			TestEqual("Conditional Answer", Sut->EvaluateObject(Object), SF::Conditional::Answer::No());
+			Sut->AddChild(NewObject<SF::UConditional_Utility_AlwaysTrue>());
+			TestEqual("Conditional Answer", Sut->EvaluateObject(Object), Answer::No());
 		});
 	});
 	Describe("with a false child", [this]
 	{
 		It("should yield a yes answer", [this]
 		{
-			Sut->TryAddChild(NewObject<SF::UConditional_Utility_AlwaysFalse>());
-			TestEqual("Conditional Answer", Sut->EvaluateObject(Object), SF::Conditional::Answer::Yes());
+			Sut->AddChild(NewObject<SF::UConditional_Utility_AlwaysFalse>());
+			TestEqual("Conditional Answer", Sut->EvaluateObject(Object), Answer::Yes());
 		});
 	});
 	Describe("adding two children", [this]
 	{
 		It("should reject adding any children after the first", [this]
 		{
-			Sut->TryAddChild(NewObject<SF::UConditional_Utility_AlwaysTrue>());
-			const bool bCouldAddSecondChild = Sut->TryAddChild(NewObject<SF::UConditional_Utility_AlwaysTrue>());
-			TestFalse("Could Add Second Child", bCouldAddSecondChild);
+			Sut->AddChild(NewObject<SF::UConditional_Utility_AlwaysTrue>());
+			const bool bCanAddSecondChild = Sut->CanAddChild(NewObject<SF::UConditional_Utility_AlwaysTrue>());
+			TestFalse("Can Add Second Child", bCanAddSecondChild);
 		});
 	});
 	Describe("with a child yielding a runtime error", [this]
@@ -54,7 +54,7 @@ void FConditionalTypeLogicNotSpec::Define()
 		{
 			auto* RuntimeErrorConditional = NewObject<UConditional_MockConditional>();
 			RuntimeErrorConditional->Answer = Answer::Error::MockA();
-			Sut->TryAddChild(RuntimeErrorConditional);
+			Sut->AddChild(RuntimeErrorConditional);
 			TestEqual("Conditional Answer", Sut->EvaluateObject(Object), Answer::Error::HasChildWithRuntimeError());
 		});
 	});

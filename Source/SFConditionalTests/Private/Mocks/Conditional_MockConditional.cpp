@@ -4,10 +4,9 @@
 #include "Conditional_MockConditional.h"
 
 #if WITH_EDITOR
-bool UConditional_MockConditional::TryAddChild_Implementation(UConditional* Child)
+void UConditional_MockConditional::AddChild_Implementation(UConditional* Child)
 {
 	Children.Emplace(Child);
-	return true;
 }
 
 bool UConditional_MockConditional::TryRemoveChild_Implementation(UConditional* Child)

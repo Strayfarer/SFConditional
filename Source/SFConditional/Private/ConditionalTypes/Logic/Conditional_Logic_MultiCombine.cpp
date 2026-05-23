@@ -74,10 +74,9 @@ FString SF::UConditional_Logic_MultiCombine::CreateConfigurationDebugString_Impl
 }
 
 #if WITH_EDITOR
-bool SF::UConditional_Logic_MultiCombine::TryAddChild_Implementation(UConditional* Child)
+void SF::UConditional_Logic_MultiCombine::AddChild_Implementation(UConditional* Child)
 {
 	Conditions.Emplace(Child);
-	return true;
 }
 
 bool SF::UConditional_Logic_MultiCombine::TryRemoveChild_Implementation(UConditional* Child)

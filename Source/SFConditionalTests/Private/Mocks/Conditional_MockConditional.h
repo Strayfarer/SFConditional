@@ -17,7 +17,7 @@ class UConditional_MockConditional : public SF::UConditional
 public:
 	// UConditional
 #if WITH_EDITOR
-	virtual bool TryAddChild_Implementation(UConditional* Child) override;
+	virtual void AddChild_Implementation(UConditional* Child) override;
 	virtual bool TryRemoveChild_Implementation(UConditional* Child) override;
 #endif
 	// --
@@ -26,17 +26,14 @@ public:
 
 	FInt32Range AllowedChildrenNumRange = FInt32Range(TRangeBound<int>::Inclusive(0),
 													  TRangeBound<int>::Inclusive(0));
-
+	
 	UPROPERTY()
 	TArray<UConditional*> Children = {};
 
 	FORCEINLINE void SetWeight(const float InWeight) { Weight = InWeight; }
 	FORCEINLINE void SetIsOptional(const bool bInIsOptional) { bIsOptional = bInIsOptional; }
 	FORCEINLINE void SetIsInverted(const bool bInIsInverted) { bIsInverted = bInIsInverted; }
-	FORCEINLINE void SetDoesImpactScoreOnFail(const bool bInDoesImpactScoreOnFail)
-	{
-		bDoesImpactScoreOnFail = bInDoesImpactScoreOnFail;
-	}
+	FORCEINLINE void SetDoesImpactScoreOnFail(const bool bInDoesImpactScoreOnFail) { bDoesImpactScoreOnFail = bInDoesImpactScoreOnFail; }
 
 protected:
 	// UConditional

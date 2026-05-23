@@ -34,8 +34,8 @@ void FConditionalTypeLogicMultiCombineSpec::Define()
 		{
 			It("should yield a yes answer", [this]
 			{
-				Sut->TryAddChild(NewObject<SF::UConditional_Utility_AlwaysTrue>());
-				Sut->TryAddChild(NewObject<SF::UConditional_Utility_AlwaysTrue>());
+				Sut->AddChild(NewObject<SF::UConditional_Utility_AlwaysTrue>());
+				Sut->AddChild(NewObject<SF::UConditional_Utility_AlwaysTrue>());
 				TestEqual("Conditional Answer", Sut->EvaluateObject(Object), Answer::Yes());
 			});
 		});
@@ -43,8 +43,8 @@ void FConditionalTypeLogicMultiCombineSpec::Define()
 		{
 			It("should yield a [false, 0,5] answer", [this]
 			{
-				Sut->TryAddChild(NewObject<SF::UConditional_Utility_AlwaysTrue>());
-				Sut->TryAddChild(NewObject<SF::UConditional_Utility_AlwaysFalse>());
+				Sut->AddChild(NewObject<SF::UConditional_Utility_AlwaysTrue>());
+				Sut->AddChild(NewObject<SF::UConditional_Utility_AlwaysFalse>());
 				TestEqual("Conditional Answer", Sut->EvaluateObject(Object), Answer::Create(false, 0.5f));
 			});
 		});
@@ -52,8 +52,8 @@ void FConditionalTypeLogicMultiCombineSpec::Define()
 		{
 			It("should yield a no answer", [this]
 			{
-				Sut->TryAddChild(NewObject<SF::UConditional_Utility_AlwaysFalse>());
-				Sut->TryAddChild(NewObject<SF::UConditional_Utility_AlwaysFalse>());
+				Sut->AddChild(NewObject<SF::UConditional_Utility_AlwaysFalse>());
+				Sut->AddChild(NewObject<SF::UConditional_Utility_AlwaysFalse>());
 				TestEqual("Conditional Answer", Sut->EvaluateObject(Object), Answer::No());
 			});
 		});
@@ -70,8 +70,8 @@ void FConditionalTypeLogicMultiCombineSpec::Define()
 		{
 			It("should yield a yes answer", [this]
 			{
-				Sut->TryAddChild(NewObject<SF::UConditional_Utility_AlwaysTrue>());
-				Sut->TryAddChild(NewObject<SF::UConditional_Utility_AlwaysTrue>());
+				Sut->AddChild(NewObject<SF::UConditional_Utility_AlwaysTrue>());
+				Sut->AddChild(NewObject<SF::UConditional_Utility_AlwaysTrue>());
 				TestEqual("Conditional Answer", Sut->EvaluateObject(Object), Answer::Yes());
 			});
 		});
@@ -79,8 +79,8 @@ void FConditionalTypeLogicMultiCombineSpec::Define()
 		{
 			It("should yield a [true, 0,5] answer", [this]
 			{
-				Sut->TryAddChild(NewObject<SF::UConditional_Utility_AlwaysTrue>());
-				Sut->TryAddChild(NewObject<SF::UConditional_Utility_AlwaysFalse>());
+				Sut->AddChild(NewObject<SF::UConditional_Utility_AlwaysTrue>());
+				Sut->AddChild(NewObject<SF::UConditional_Utility_AlwaysFalse>());
 				TestEqual("Conditional Answer", Sut->EvaluateObject(Object), Answer::Create(true, 0.5f));
 			});
 		});
@@ -88,8 +88,8 @@ void FConditionalTypeLogicMultiCombineSpec::Define()
 		{
 			It("should yield a no answer", [this]
 			{
-				Sut->TryAddChild(NewObject<SF::UConditional_Utility_AlwaysFalse>());
-				Sut->TryAddChild(NewObject<SF::UConditional_Utility_AlwaysFalse>());
+				Sut->AddChild(NewObject<SF::UConditional_Utility_AlwaysFalse>());
+				Sut->AddChild(NewObject<SF::UConditional_Utility_AlwaysFalse>());
 				TestEqual("Conditional Answer", Sut->EvaluateObject(Object), Answer::No());
 			});
 		});
@@ -106,8 +106,8 @@ void FConditionalTypeLogicMultiCombineSpec::Define()
 		{
 			It("should yield a 1,0 fuzzy answer", [this]
 			{
-				Sut->TryAddChild(NewObject<SF::UConditional_Utility_AlwaysTrue>());
-				Sut->TryAddChild(NewObject<SF::UConditional_Utility_AlwaysTrue>());
+				Sut->AddChild(NewObject<SF::UConditional_Utility_AlwaysTrue>());
+				Sut->AddChild(NewObject<SF::UConditional_Utility_AlwaysTrue>());
 				TestEqual("Conditional Fuzzy Answer", Sut->EvaluateObject(Object).GetFuzzyAnswer(), 1.0f);
 			});
 		});
@@ -115,8 +115,8 @@ void FConditionalTypeLogicMultiCombineSpec::Define()
 		{
 			It("should yield a 0,5 fuzzy answer", [this]
 			{
-				Sut->TryAddChild(NewObject<SF::UConditional_Utility_AlwaysTrue>());
-				Sut->TryAddChild(NewObject<SF::UConditional_Utility_AlwaysFalse>());
+				Sut->AddChild(NewObject<SF::UConditional_Utility_AlwaysTrue>());
+				Sut->AddChild(NewObject<SF::UConditional_Utility_AlwaysFalse>());
 				TestEqual("Conditional Fuzzy Answer", Sut->EvaluateObject(Object).GetFuzzyAnswer(), 0.5f);
 			});
 		});
@@ -124,8 +124,8 @@ void FConditionalTypeLogicMultiCombineSpec::Define()
 		{
 			It("should yield a 0,0 fuzzy answer", [this]
 			{
-				Sut->TryAddChild(NewObject<SF::UConditional_Utility_AlwaysFalse>());
-				Sut->TryAddChild(NewObject<SF::UConditional_Utility_AlwaysFalse>());
+				Sut->AddChild(NewObject<SF::UConditional_Utility_AlwaysFalse>());
+				Sut->AddChild(NewObject<SF::UConditional_Utility_AlwaysFalse>());
 				TestEqual("Conditional Fuzzy Answer", Sut->EvaluateObject(Object).GetFuzzyAnswer(), 0.0f);
 			});
 		});
@@ -142,8 +142,8 @@ void FConditionalTypeLogicMultiCombineSpec::Define()
 		{
 			It("should yield a 1,0 fuzzy answer", [this]
 			{
-				Sut->TryAddChild(NewObject<SF::UConditional_Utility_AlwaysTrue>());
-				Sut->TryAddChild(NewObject<SF::UConditional_Utility_AlwaysTrue>());
+				Sut->AddChild(NewObject<SF::UConditional_Utility_AlwaysTrue>());
+				Sut->AddChild(NewObject<SF::UConditional_Utility_AlwaysTrue>());
 				TestEqual("Conditional Fuzzy Answer", Sut->EvaluateObject(Object).GetFuzzyAnswer(), 1.0f);
 			});
 		});
@@ -151,8 +151,8 @@ void FConditionalTypeLogicMultiCombineSpec::Define()
 		{
 			It("should yield a 0,0 fuzzy answer", [this]
 			{
-				Sut->TryAddChild(NewObject<SF::UConditional_Utility_AlwaysTrue>());
-				Sut->TryAddChild(NewObject<SF::UConditional_Utility_AlwaysFalse>());
+				Sut->AddChild(NewObject<SF::UConditional_Utility_AlwaysTrue>());
+				Sut->AddChild(NewObject<SF::UConditional_Utility_AlwaysFalse>());
 				TestEqual("Conditional Fuzzy Answer", Sut->EvaluateObject(Object).GetFuzzyAnswer(), 1.0f);
 			});
 		});
@@ -160,8 +160,8 @@ void FConditionalTypeLogicMultiCombineSpec::Define()
 		{
 			It("should yield a 0,0 fuzzy answer", [this]
 			{
-				Sut->TryAddChild(NewObject<SF::UConditional_Utility_AlwaysFalse>());
-				Sut->TryAddChild(NewObject<SF::UConditional_Utility_AlwaysFalse>());
+				Sut->AddChild(NewObject<SF::UConditional_Utility_AlwaysFalse>());
+				Sut->AddChild(NewObject<SF::UConditional_Utility_AlwaysFalse>());
 				TestEqual("Conditional Fuzzy Answer", Sut->EvaluateObject(Object).GetFuzzyAnswer(), 0.0f);
 			});
 		});
@@ -169,13 +169,13 @@ void FConditionalTypeLogicMultiCombineSpec::Define()
 		{
 			It("should yield a 1,0 fuzzy answer", [this]
 			{
-				Sut->TryAddChild(NewObject<SF::UConditional_Utility_AlwaysTrue>());
-				Sut->TryAddChild(NewObject<SF::UConditional_Utility_AlwaysTrue>());
+				Sut->AddChild(NewObject<SF::UConditional_Utility_AlwaysTrue>());
+				Sut->AddChild(NewObject<SF::UConditional_Utility_AlwaysTrue>());
 				auto* MiddleConditional = NewObject<UConditional_MockConditional>();
 				MiddleConditional->Answer = Answer::Create(true, 0.36f);
-				Sut->TryAddChild(MiddleConditional);
-				Sut->TryAddChild(NewObject<SF::UConditional_Utility_AlwaysTrue>());
-				Sut->TryAddChild(NewObject<SF::UConditional_Utility_AlwaysTrue>());
+				Sut->AddChild(MiddleConditional);
+				Sut->AddChild(NewObject<SF::UConditional_Utility_AlwaysTrue>());
+				Sut->AddChild(NewObject<SF::UConditional_Utility_AlwaysTrue>());
 				TestEqual("Conditional Fuzzy Answer", Sut->EvaluateObject(Object).GetFuzzyAnswer(), 1.f);
 			});
 		});
@@ -185,23 +185,23 @@ void FConditionalTypeLogicMultiCombineSpec::Define()
 			{
 				auto* Conditional1 = NewObject<UConditional_MockConditional>();
 				Conditional1->Answer = Answer::Create(true, 0.1f);
-				Sut->TryAddChild(Conditional1);
+				Sut->AddChild(Conditional1);
 				
 				auto* Conditional3 = NewObject<UConditional_MockConditional>();
 				Conditional3->Answer = Answer::Create(true, 0.3f);
-				Sut->TryAddChild(Conditional3);
+				Sut->AddChild(Conditional3);
 				
 				auto* Conditional2 = NewObject<UConditional_MockConditional>();
 				Conditional2->Answer = Answer::Create(false, 0.2f);
-				Sut->TryAddChild(Conditional2);
+				Sut->AddChild(Conditional2);
 				
 				auto* Conditional5 = NewObject<UConditional_MockConditional>();
 				Conditional5->Answer = Answer::Create(false, 0.9f);
-				Sut->TryAddChild(Conditional5);
+				Sut->AddChild(Conditional5);
 				
 				auto* Conditional4 = NewObject<UConditional_MockConditional>();
 				Conditional4->Answer = Answer::Create(true, 0.8f);
-				Sut->TryAddChild(Conditional4);
+				Sut->AddChild(Conditional4);
 				
 				TestEqual("Conditional Fuzzy Answer", Sut->EvaluateObject(Object).GetFuzzyAnswer(), 0.3f);
 			});
@@ -211,11 +211,11 @@ void FConditionalTypeLogicMultiCombineSpec::Define()
 	{
 		It("should yield HasChildWithRuntimeError error state", [this]
 		{
-			Sut->TryAddChild(NewObject<SF::UConditional_Utility_AlwaysTrue>());
+			Sut->AddChild(NewObject<SF::UConditional_Utility_AlwaysTrue>());
 			auto* RuntimeErrorConditional = NewObject<UConditional_MockConditional>();
 			RuntimeErrorConditional->Answer = Answer::Error::MockA();
-			Sut->TryAddChild(RuntimeErrorConditional);
-			Sut->TryAddChild(NewObject<SF::UConditional_Utility_AlwaysTrue>());
+			Sut->AddChild(RuntimeErrorConditional);
+			Sut->AddChild(NewObject<SF::UConditional_Utility_AlwaysTrue>());
 			TestEqual("Conditional Answer", Sut->EvaluateObject(Object), Answer::Error::HasChildWithRuntimeError());
 		});
 	});

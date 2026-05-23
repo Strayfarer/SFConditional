@@ -42,10 +42,9 @@ FString SF::UConditional_Logic_And::CreateConfigurationDebugString_Implementatio
 }
 
 #if WITH_EDITOR
-bool SF::UConditional_Logic_And::TryAddChild_Implementation(UConditional* Child)
+void SF::UConditional_Logic_And::AddChild_Implementation(UConditional* Child)
 {
 	Conditions.Emplace(Child);
-	return true;
 }
 
 bool SF::UConditional_Logic_And::TryRemoveChild_Implementation(UConditional* Child)

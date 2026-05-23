@@ -58,7 +58,7 @@ namespace SF
 		virtual TArray<UConditional*> GetImmediateChildren_Implementation() const override;
 		virtual FString CreateConfigurationDebugString_Implementation() const override;
 #if WITH_EDITOR
-		virtual bool TryAddChild_Implementation(UConditional* Child) override;
+		virtual void AddChild_Implementation(UConditional* Child) override;
 		virtual bool TryRemoveChild_Implementation(UConditional* Child) override;
 #endif
 		// --

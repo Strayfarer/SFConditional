@@ -82,7 +82,7 @@ void FConditionalBaseClassSpec::Define()
 		It("should yield HasInvalidChild error state", [this]
 		{
 			Sut->AllowedChildrenNumRange = ChildRange_OneAllowed;
-			Sut->TryAddChild(nullptr);
+			Sut->AddChild(nullptr);
 			TestEqual("Conditional Answer", 
 				Sut->EvaluateObject(Object), Answer::Error::HasInvalidChild());
 		});

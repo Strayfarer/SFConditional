@@ -44,14 +44,9 @@ FString SF::UConditional_Logic_Not::CreateConfigurationDebugString_Implementatio
 }
 
 #if WITH_EDITOR
-bool SF::UConditional_Logic_Not::TryAddChild_Implementation(UConditional* Child)
+void SF::UConditional_Logic_Not::AddChild_Implementation(UConditional* Child)
 {
-	if (Condition)
-	{
-		return false;
-	}
 	Condition = Child;
-	return true;
 }
 
 bool SF::UConditional_Logic_Not::TryRemoveChild_Implementation(UConditional* Child)

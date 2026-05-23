@@ -171,7 +171,20 @@ void SF::UConditional::VisualizeWithGameplayDebugger(FGameplayDebuggerCategory& 
 #endif WITH_GAMEPLAY_DEBUGGER
 
 #if WITH_EDITOR
-bool SF::UConditional::TryAddChild_Implementation(UConditional* Child) { return false; }
+bool SF::UConditional::CanAddChild_Implementation(UConditional* Child) const
+{
+	if (!IsValid(Child))
+	{
+		return false;
+	}
+	if (!GetAllowedChildrenNumRange().Contains(GetImmediateChildren().Num() + 1))
+	{
+		return false;
+	}
+	return true;
+}
+
+void SF::UConditional::AddChild_Implementation(UConditional* Child) {}
 bool SF::UConditional::TryRemoveChild_Implementation(UConditional* Child) { return false; }
 #endif
 

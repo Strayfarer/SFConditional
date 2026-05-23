@@ -27,8 +27,8 @@ void FConditionalTypeLogicAndSpec::Define()
 	{
 		It("should yield a yes answer", [this]
 		{
-			Sut->TryAddChild(NewObject<SF::UConditional_Utility_AlwaysTrue>());
-			Sut->TryAddChild(NewObject<SF::UConditional_Utility_AlwaysTrue>());
+			Sut->AddChild(NewObject<SF::UConditional_Utility_AlwaysTrue>());
+			Sut->AddChild(NewObject<SF::UConditional_Utility_AlwaysTrue>());
 			TestEqual("Conditional Answer", Sut->EvaluateObject(Object), Answer::Yes());
 		});
 	});
@@ -36,8 +36,8 @@ void FConditionalTypeLogicAndSpec::Define()
 	{
 		It("should yield a no answer", [this]
 		{
-			Sut->TryAddChild(NewObject<SF::UConditional_Utility_AlwaysTrue>());
-			Sut->TryAddChild(NewObject<SF::UConditional_Utility_AlwaysFalse>());
+			Sut->AddChild(NewObject<SF::UConditional_Utility_AlwaysTrue>());
+			Sut->AddChild(NewObject<SF::UConditional_Utility_AlwaysFalse>());
 			TestEqual("Conditional Answer", Sut->EvaluateObject(Object), Answer::No());
 		});
 	});
@@ -45,8 +45,8 @@ void FConditionalTypeLogicAndSpec::Define()
 	{
 		It("should yield a no answer", [this]
 		{
-			Sut->TryAddChild(NewObject<SF::UConditional_Utility_AlwaysFalse>());
-			Sut->TryAddChild(NewObject<SF::UConditional_Utility_AlwaysFalse>());
+			Sut->AddChild(NewObject<SF::UConditional_Utility_AlwaysFalse>());
+			Sut->AddChild(NewObject<SF::UConditional_Utility_AlwaysFalse>());
 			TestEqual("Conditional Answer", Sut->EvaluateObject(Object), Answer::No());
 		});
 	});
@@ -54,7 +54,7 @@ void FConditionalTypeLogicAndSpec::Define()
 	{
 		It("should yield NumChildrenUnsupported error state", [this]
 		{
-			Sut->TryAddChild(NewObject<SF::UConditional_Utility_AlwaysTrue>());
+			Sut->AddChild(NewObject<SF::UConditional_Utility_AlwaysTrue>());
 			TestEqual("Conditional Answer", Sut->EvaluateObject(Object), Answer::Error::NumChildrenUnsupported());
 		});
 	});
@@ -62,10 +62,10 @@ void FConditionalTypeLogicAndSpec::Define()
 	{
 		It("should yield HasChildWithRuntimeError error state", [this]
 		{
-			Sut->TryAddChild(NewObject<SF::UConditional_Utility_AlwaysTrue>());
+			Sut->AddChild(NewObject<SF::UConditional_Utility_AlwaysTrue>());
 			auto* RuntimeErrorConditional = NewObject<UConditional_MockConditional>();
 			RuntimeErrorConditional->Answer = Answer::Error::MockA();
-			Sut->TryAddChild(RuntimeErrorConditional);
+			Sut->AddChild(RuntimeErrorConditional);
 			TestEqual("Conditional Answer", Sut->EvaluateObject(Object), Answer::Error::HasChildWithRuntimeError());
 		});
 	});
