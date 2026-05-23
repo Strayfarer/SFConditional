@@ -25,7 +25,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Fixed answer comparison yielding equality though error messages differ
 
 ## [2.1.0] - 2026-05-18
-
 ### Changed
 - Improved editor UX of conditionals that allow children
 - Renamed a few `FConditionalDebugTrace` members
@@ -33,23 +32,21 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Fixed missing SF:: prefix in Readme
 
 ## [2.0.0] - 2026-05-16
-
 ### Changed
-- moved all types to the SF namespace and removed their SF prefix
+- Moved all types to the SF namespace and removed their SF prefix
 ### Added
-- added object context to selected runtime error constructors, so it's
+- Added object context to selected runtime error constructors, so it's
 easier to understand if a specific object causes the issue
-- implemented that conditionals with children answer with the new 
+- Implemented that conditionals with children answer with the new 
 `HasChildWithRuntimeError` when any child answers with error
 
 ## [1.0.0] - 2026-02-21
-
 ### Added
-- SFConditional
-- SFConditionalAnswer
-- SFConditionalDebugTrace
-- SFConditionalEvaluationContext
-- Conditional Types
+- Added SFConditional
+- Added SFConditionalAnswer
+- Added SFConditionalDebugTrace
+- Added SFConditionalEvaluationContext
+- Added Conditional Types
   - Actor - Has Component
   - Actor - Is Ticking
   - Area - Screen Box
