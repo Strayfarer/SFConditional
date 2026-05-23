@@ -4,6 +4,7 @@
 #include "Conditional.h"
 
 #include "ConditionalDebugTrace.h"
+#include "Algo/AnyOf.h"
 #if WITH_EDITOR
 #include "Misc/DataValidation.h"
 #endif
@@ -81,7 +82,7 @@ SF::FConditionalAnswer SF::UConditional::Evaluate(const FConditionalEvaluationCo
 	{
 		return Conditional::Answer::Error::NumChildrenUnsupported();
 	}
-	if (ImmediateChildren.Contains(nullptr))
+	if (Algo::AnyOf(ImmediateChildren, [](auto* Conditional){ return !IsValid(Conditional); }))
 	{
 		return Conditional::Answer::Error::HasInvalidChild();
 	}
