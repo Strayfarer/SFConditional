@@ -96,12 +96,12 @@ SF::FConditionalAnswer SF::UConditionalBlueprintFunctionLibrary::Answer_Error_In
 	return Conditional::Answer::Error::Instigator::NoTransformProvider(Instigator);
 }
 
-bool SF::UConditionalBlueprintFunctionLibrary::Answer_GetBinaryAnswer(const SF::FConditionalAnswer& Answer)
+bool SF::UConditionalBlueprintFunctionLibrary::Answer_GetBinaryAnswer(const FConditionalAnswer& Answer)
 {
 	return Answer.GetBinaryAnswer();
 }
 
-float SF::UConditionalBlueprintFunctionLibrary::Answer_GetFuzzyAnswer(const SF::FConditionalAnswer& Answer)
+float SF::UConditionalBlueprintFunctionLibrary::Answer_GetFuzzyAnswer(const FConditionalAnswer& Answer)
 {
 	return Answer.GetFuzzyAnswer();
 }
@@ -126,7 +126,12 @@ UObject* SF::UConditionalBlueprintFunctionLibrary::EvaluationContext_GetTestObje
 UObject* SF::UConditionalBlueprintFunctionLibrary::EvaluationContext_TryGetTestObjectAs(
 	const FConditionalEvaluationContext& EvaluationContext, const TSubclassOf<UObject> ReturnClass)
 {
-	return EvaluationContext.GetTestObject();
+	UObject* TestObject = EvaluationContext.GetTestObject();
+	if (!TestObject)
+		return nullptr;
+	if (!TestObject->IsA(ReturnClass))
+		return nullptr;
+	return TestObject;
 }
 
 AActor* SF::UConditionalBlueprintFunctionLibrary::EvaluationContext_TryGetTestObjectActor(
@@ -162,7 +167,12 @@ UObject* SF::UConditionalBlueprintFunctionLibrary::EvaluationContext_GetInstigat
 UObject* SF::UConditionalBlueprintFunctionLibrary::EvaluationContext_TryGetInstigatorAs(
 	const FConditionalEvaluationContext& EvaluationContext, const TSubclassOf<UObject> ReturnClass)
 {
-	return EvaluationContext.GetInstigator();
+	UObject* Instigator = EvaluationContext.GetInstigator();
+	if (!Instigator)
+		return nullptr;
+	if (!Instigator->IsA(ReturnClass))
+		return nullptr;
+	return Instigator;
 }
 
 AActor* SF::UConditionalBlueprintFunctionLibrary::EvaluationContext_TryGetInstigatorActor(
