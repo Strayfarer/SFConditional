@@ -96,6 +96,17 @@ void FConditionalBaseClassSpec::Define()
 				Sut->EvaluateObject(Object), Answer::Error::NumChildrenUnsupported());
 		});
 	});
+	Describe("answering with an error but inverted", [this]
+	{
+		It("should not invert the answer", [this]
+		{
+			Sut->Answer = Answer::Error::MockA();
+			Sut->SetIsInverted(true);
+			const SF::FConditionalAnswer EvaluatedAnswer = Sut->EvaluateObject(Object);
+			TestEqual("Conditional Answer Binary", EvaluatedAnswer.GetBinaryAnswer(), Sut->Answer.GetBinaryAnswer());
+			TestEqual("Conditional Answer Fuzzy",  EvaluatedAnswer.GetFuzzyAnswer(),  Sut->Answer.GetFuzzyAnswer());
+		});
+	});
 }
 
 #endif WITH_AUTOMATION_WORKER

@@ -108,28 +108,32 @@ SF::FConditionalAnswer SF::UConditional::Evaluate(const FConditionalEvaluationCo
 		DebugTrace->EndChildSection();
 	}
 	
-	if (bIsInverted)
+	if (!Answer.IsError())
 	{
-		Answer.bBinaryAnswer = !Answer.bBinaryAnswer;
-		Answer.FuzzyAnswer = FMath::Max(1.f - Answer.FuzzyAnswer, 0.f);
-	}
+		if (bIsInverted)
+		{
+			Answer.bBinaryAnswer = !Answer.bBinaryAnswer;
+			Answer.FuzzyAnswer = FMath::Max(1.f - Answer.FuzzyAnswer, 0.f);
+		}
 	
-	Answer.FuzzyAnswer *= Weight;
+		Answer.FuzzyAnswer *= Weight;
 	
-	if (bIsOptional)
-	{
-		Answer.bBinaryAnswer = true;
-	}
+		if (bIsOptional)
+		{
+			Answer.bBinaryAnswer = true;
+		}
 
-	if (!Answer.bBinaryAnswer && !bDoesImpactScoreOnFail)
-	{
-		Answer.FuzzyAnswer = 0.f;
+		if (!Answer.bBinaryAnswer && !bDoesImpactScoreOnFail)
+		{
+			Answer.FuzzyAnswer = 0.f;
+		}
 	}
 	
 	if (DebugTrace)
 	{
 		DebugTrace->PushConditionalAnswer(Answer, *this);
 	}
+	
 	return Answer;
 }
 
