@@ -25,6 +25,11 @@ TArray<SF::UConditional*> SF::UConditional_Logic_Not::GetImmediateChildren_Imple
 
 FString SF::UConditional_Logic_Not::CreateConfigurationDebugString_Implementation() const
 {
+	if (!Condition)
+	{
+		return "";
+	}
+	
 	const FString ConditionNameFull = Condition.GetName();
 	
 	FString ConditionNameWithoutIndex;
