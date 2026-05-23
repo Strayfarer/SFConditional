@@ -55,11 +55,10 @@ SF::FConditionalAnswer SF::Conditional::Answer::FromErrorMsg(const FName& InErro
 
 #define SF_CONDITIONAL_IMPL_ERROR(ErrorMsg) \
 	static FConditionalAnswer Instance{ FName(ErrorMsg) }; \
-return Instance;
+return Instance
 
 #define SF_CONDITIONAL_IMPL_ERROR_OBJ(ErrorMsg, Object) \
-	static FConditionalAnswer Instance{ FName(FString::Printf(TEXT(ErrorMsg), IsValid(Object) ? *Object->GetName() : *FString("nullptr"))) }; \
-return Instance;
+	return FConditionalAnswer{ FName(FString::Printf(TEXT(ErrorMsg), IsValid(Object) ? *Object->GetName() : *FString("nullptr"))) }
 
 const SF::FConditionalAnswer& SF::Conditional::Answer::Error::InvalidTestObject()
 {
@@ -81,62 +80,62 @@ const SF::FConditionalAnswer& SF::Conditional::Answer::Error::HasChildWithRuntim
 	SF_CONDITIONAL_IMPL_ERROR("Has child with runtime error");
 }
 
-const SF::FConditionalAnswer& SF::Conditional::Answer::Error::NoPlayerController(const UWorld* World)
+SF::FConditionalAnswer SF::Conditional::Answer::Error::NoPlayerController(const UWorld* World)
 {
 	SF_CONDITIONAL_IMPL_ERROR_OBJ("Could not find valid player controller in %s", World);
 }
 
-const SF::FConditionalAnswer& SF::Conditional::Answer::Error::NoViewport(const APlayerController* Pc)
+SF::FConditionalAnswer SF::Conditional::Answer::Error::NoViewport(const APlayerController* Pc)
 {
 	SF_CONDITIONAL_IMPL_ERROR_OBJ("Could not find valid viewport for %s", Pc);
 }
 
-const SF::FConditionalAnswer& SF::Conditional::Answer::Error::Instigator::NoActor(const UObject* TestObject)
+SF::FConditionalAnswer SF::Conditional::Answer::Error::Instigator::NoActor(const UObject* TestObject)
 {
 	SF_CONDITIONAL_IMPL_ERROR_OBJ("Could not resolve instigator to supported class AActor: %s", TestObject);
 }
 
-const SF::FConditionalAnswer& SF::Conditional::Answer::Error::Instigator::NoActorComponent(const UObject* TestObject)
+SF::FConditionalAnswer SF::Conditional::Answer::Error::Instigator::NoActorComponent(const UObject* TestObject)
 {
 	SF_CONDITIONAL_IMPL_ERROR_OBJ("Could not resolve instigator to supported class UActorComponent: %s", TestObject);
 }
 
-const SF::FConditionalAnswer& SF::Conditional::Answer::Error::Instigator::NoSceneComponent(const UObject* TestObject)
+SF::FConditionalAnswer SF::Conditional::Answer::Error::Instigator::NoSceneComponent(const UObject* TestObject)
 {
 	SF_CONDITIONAL_IMPL_ERROR_OBJ("Could not resolve instigator to supported class USceneComponent: %s", TestObject);
 }
 
-const SF::FConditionalAnswer& SF::Conditional::Answer::Error::Instigator::NoActorProvider(const UObject* TestObject)
+SF::FConditionalAnswer SF::Conditional::Answer::Error::Instigator::NoActorProvider(const UObject* TestObject)
 {
 	SF_CONDITIONAL_IMPL_ERROR_OBJ("Could not resolve instigator to supported class UActorComponent: %s", TestObject);
 }
 
-const SF::FConditionalAnswer& SF::Conditional::Answer::Error::Instigator::NoTransformProvider(const UObject* TestObject)
+SF::FConditionalAnswer SF::Conditional::Answer::Error::Instigator::NoTransformProvider(const UObject* TestObject)
 {
 	SF_CONDITIONAL_IMPL_ERROR_OBJ("Could not resolve instigator to a FTransform: %s", TestObject);
 }
 
-const SF::FConditionalAnswer& SF::Conditional::Answer::Error::TestObject::NoActor(const UObject* TestObject)
+SF::FConditionalAnswer SF::Conditional::Answer::Error::TestObject::NoActor(const UObject* TestObject)
 {
 	SF_CONDITIONAL_IMPL_ERROR_OBJ("Could not resolve test object to supported class AActor: %s", TestObject);
 }
 
-const SF::FConditionalAnswer& SF::Conditional::Answer::Error::TestObject::NoActorComponent(const UObject* TestObject)
+SF::FConditionalAnswer SF::Conditional::Answer::Error::TestObject::NoActorComponent(const UObject* TestObject)
 {
 	SF_CONDITIONAL_IMPL_ERROR_OBJ("Could not resolve test object to supported class UActorComponent: %s", TestObject);
 }
 
-const SF::FConditionalAnswer& SF::Conditional::Answer::Error::TestObject::NoSceneComponent(const UObject* TestObject)
+SF::FConditionalAnswer SF::Conditional::Answer::Error::TestObject::NoSceneComponent(const UObject* TestObject)
 {
 	SF_CONDITIONAL_IMPL_ERROR_OBJ("Could not resolve test object to supported class USceneComponent: %s", TestObject);
 }
 
-const SF::FConditionalAnswer& SF::Conditional::Answer::Error::TestObject::NoActorProvider(const UObject* TestObject)
+SF::FConditionalAnswer SF::Conditional::Answer::Error::TestObject::NoActorProvider(const UObject* TestObject)
 {
 	SF_CONDITIONAL_IMPL_ERROR_OBJ("Could not resolve test object to supported class AActor or UActorComponent: %s", TestObject);
 }
 
-const SF::FConditionalAnswer& SF::Conditional::Answer::Error::TestObject::NoTransformProvider(const UObject* TestObject)
+SF::FConditionalAnswer SF::Conditional::Answer::Error::TestObject::NoTransformProvider(const UObject* TestObject)
 {
 	SF_CONDITIONAL_IMPL_ERROR_OBJ("Could not resolve test object to a FTransform: %s", TestObject);
 }
