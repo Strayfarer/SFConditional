@@ -68,9 +68,16 @@ SF::FConditionalAnswer SF::UConditional_Object_IsOfClass::EvaluateInternal_Imple
 
 FString SF::UConditional_Object_IsOfClass::CreateConfigurationDebugString_Implementation() const
 {
-	const UClass* ClassToCheckFor = ResolveClassToCheckFor();
-	return FString(ClassToCheckFor ? ClassToCheckFor->GetName() : "")
-		+ FString(bTryTestAssociatedActor ? ", TriesTestingActor" : "");
+	FString ClassName{};
+	if (bPreloadClassToCheckFor)
+	{
+		ClassName = IsValid(PreLoadedClassToCheckFor) ? PreLoadedClassToCheckFor->GetName() : "";
+	}
+	else
+	{
+		ClassName = SyncLoadedClassToCheckFor.IsNull() ? "" : SyncLoadedClassToCheckFor.GetAssetName();
+	}
+	return ClassName + FString(bTryTestAssociatedActor ? ", TriesTestingActor" : "");
 }
 
 UClass* SF::UConditional_Object_IsOfClass::ResolveClassToCheckFor() const
