@@ -217,7 +217,10 @@ void SF::UConditional::UpdateTitlePropertyString()
 	
 	const FString DisplayName = GetClass()->GetDisplayNameText().ToString();
 	FString DiscardedLeftPart, CoreDisplayName;
-	DisplayName.Split(" - ", &DiscardedLeftPart, &CoreDisplayName);
+	if (!DisplayName.Split(" - ", &DiscardedLeftPart, &CoreDisplayName))
+	{
+		CoreDisplayName = DisplayName;
+	}
 	
 	const FString ConfigurationString = CreateConfigurationDebugString();
 	const FString ConfigurationStringFull = ConfigurationString.IsEmpty() ? "" : " (" + ConfigurationString + ")";

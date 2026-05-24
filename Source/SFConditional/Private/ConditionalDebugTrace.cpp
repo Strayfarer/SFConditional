@@ -38,8 +38,10 @@ FString SF::FConditionalDebugTrace::CreateConditionalDebugStatusString(const FCo
 	FString Name = Conditional.GetName();
 	Name.RemoveFromStart("Conditional_");
 	int32 LastUnderscoreIdx;
-	Name.FindLastChar('_', LastUnderscoreIdx);
-	Name = Name.Left(LastUnderscoreIdx);
+	if (Name.FindLastChar('_', LastUnderscoreIdx))
+	{
+		Name = Name.Left(LastUnderscoreIdx);
+	}
 	
 	if (ReferenceAnswer.IsError())
 	{
