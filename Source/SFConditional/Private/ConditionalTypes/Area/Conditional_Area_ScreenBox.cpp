@@ -17,71 +17,72 @@ SF::FConditionalAnswer SF::UConditional_Area_ScreenBox::EvaluateInternal_Impleme
 		return Answer::Error::NoPlayerController(EvaluationContext.GetWorld());
 	}
 
-	// Get screen size
-	int32 ViewportX, ViewportY;
-	Pc->GetViewportSize(ViewportX, ViewportY);
-	if (ViewportX <= 0 || ViewportY <= 0)
+	int32 ViewportSizeX, ViewportSizeY;
+	Pc->GetViewportSize(ViewportSizeX, ViewportSizeY);
+	if (ViewportSizeX <= 0 || ViewportSizeY <= 0)
 	{
 		return Answer::Error::NoViewport(Pc);
 	}
 
-	const TOptional<FTransform> EvaluatedTransform = EvaluationContext.TryGetTestObjectTransform();
-	if (!EvaluatedTransform.IsSet())
+	const TOptional<FTransform> TestedWorldTransform = EvaluationContext.TryGetTestObjectTransform();
+	if (!TestedWorldTransform.IsSet())
 	{
 		return Answer::Error::TestObject::NoTransformProvider(EvaluationContext.GetTestObject());
 	}
 
-	// Project world location to screen space. If we're outside screen space, return No.
-	FVector2D ScreenPosition;
-	if (!Pc->ProjectWorldLocationToScreen(EvaluatedTransform->GetLocation(), ScreenPosition))
+	// Project world location to screen space
+	FVector2D TestedScreenLoc;
+	if (!Pc->ProjectWorldLocationToScreen(TestedWorldTransform->GetLocation(), TestedScreenLoc))
 	{
 		return Answer::No();
 	}
 
-	const FVector2D ScreenCenter = FVector2D(ViewportX * 0.5f, ViewportY * 0.5f);
+	const FVector2D ViewportCenter = FVector2D(ViewportSizeX * 0.5f, ViewportSizeY * 0.5f);
 
-	// Define box bounds
-	float MinX, MaxX, MinY, MaxY;
+	// Compute box bounds
+	float BoxMinX, BoxMaxX, BoxMinY, BoxMaxY;
 	if (bFromCenterInsteadOfBorder)
 	{
-		MinX = ScreenCenter.X - LeftDistance;
-		MaxX = ScreenCenter.X + RightDistance;
-		MinY = ScreenCenter.Y - TopDistance;
-		MaxY = ScreenCenter.Y + BottomDistance;
+		BoxMinX = ViewportCenter.X - LeftDistance;
+		BoxMaxX = ViewportCenter.X + RightDistance;
+		BoxMinY = ViewportCenter.Y - TopDistance;
+		BoxMaxY = ViewportCenter.Y + BottomDistance;
 	}
 	else
 	{
-		MinX = LeftDistance;
-		MaxX = ViewportX - RightDistance;
-		MinY = TopDistance;
-		MaxY = ViewportY - BottomDistance;
+		BoxMinX = 0.f + LeftDistance;
+		BoxMaxX = ViewportSizeX - RightDistance;
+		BoxMinY = 0.f + TopDistance;
+		BoxMaxY = ViewportSizeY - BottomDistance;
 	}
 
-	// Check containment
-	const bool bInside =
-		ScreenPosition.X >= MinX && ScreenPosition.X <= MaxX &&
-		ScreenPosition.Y >= MinY && ScreenPosition.Y <= MaxY;
+	// Binary answer is whether the tested location is inside the box
+	const bool bBinaryAnswer =
+		TestedScreenLoc.X >= BoxMinX && TestedScreenLoc.X <= BoxMaxX &&
+		TestedScreenLoc.Y >= BoxMinY && TestedScreenLoc.Y <= BoxMaxY;
 
-	// Fuzzy score: 1 at center, 0 at furthest edge
-	const float DistanceToCenter = FVector2D::Distance(ScreenPosition, ScreenCenter);
-	float MaxDistance;
+	// Fuzzy answer is 1 at center, 0 at furthest point on box and beyond
+	const float DistTestedLocToCenter = FVector2D::Distance(TestedScreenLoc, ViewportCenter);
+	float DistMaxToBoxBorder;
 	if (bFromCenterInsteadOfBorder)
 	{
-		MaxDistance = FVector2D(
+		DistMaxToBoxBorder = FVector2D(
 			FMath::Max(LeftDistance, RightDistance),
 			FMath::Max(TopDistance, BottomDistance)
 		).Size();
 	}
 	else
 	{
-		MaxDistance = FVector2D(
-			FMath::Max(ScreenCenter.X - LeftDistance, ScreenCenter.X - RightDistance),
-			FMath::Max(ScreenCenter.Y - TopDistance, ScreenCenter.Y - BottomDistance)
+		DistMaxToBoxBorder = FVector2D(
+			FMath::Max(ViewportCenter.X - LeftDistance, ViewportCenter.X - RightDistance),
+			FMath::Max(ViewportCenter.Y - TopDistance, ViewportCenter.Y - BottomDistance)
 		).Size();
 	}
-	const float FuzzyScore = FMath::Clamp(1.0f - (DistanceToCenter / MaxDistance), 0.f, 1.f);
+	const float FuzzyAnswer = DistMaxToBoxBorder == 0.f 
+		? 0.f
+		: FMath::Clamp(1.f - (DistTestedLocToCenter / DistMaxToBoxBorder), 0.f, 1.f);
 
-	return FConditionalAnswer(bInside, FuzzyScore);
+	return FConditionalAnswer{bBinaryAnswer, FuzzyAnswer};
 }
 
 FString SF::UConditional_Area_ScreenBox::CreateConfigurationDebugString_Implementation() const
@@ -124,7 +125,5 @@ void SF::UConditional_Area_ScreenBox::VisualizeWithGameplayDebugger(FGameplayDeb
 	Canvas.Canvas->K2_DrawLine(TopLeft, BottomLeft, 1.f, FLinearColor::Blue);
 	Canvas.Canvas->K2_DrawLine(BottomRight, TopRight, 1.f, FLinearColor::Blue);
 	Canvas.Canvas->K2_DrawLine(BottomRight, BottomLeft, 1.f, FLinearColor::Blue);
-
-	Canvas.Canvas->K2_DrawBox(Center - FVector2D(2), FVector2D(4), 1.f, FColor::Blue);
 }
 #endif // WITH_GAMEPLAY_DEBUGGER
