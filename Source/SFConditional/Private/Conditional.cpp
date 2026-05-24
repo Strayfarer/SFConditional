@@ -86,7 +86,7 @@ SF::FConditionalAnswer SF::UConditional::Evaluate(const FConditionalEvaluationCo
 	{
 		return Conditional::Answer::Error::HasInvalidChild();
 	}
-	if (!EvaluationContext.GetTestObject())
+	if (!IsValid(EvaluationContext.GetTestObject()))
 	{
 		return Conditional::Answer::Error::InvalidTestObject();
 	}
