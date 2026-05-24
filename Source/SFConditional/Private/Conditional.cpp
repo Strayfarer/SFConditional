@@ -177,7 +177,8 @@ bool SF::UConditional::CanAddChild_Implementation(UConditional* Child) const
 	{
 		return false;
 	}
-	if (!GetAllowedChildrenNumRange().Contains(GetImmediateChildren().Num() + 1))
+	const FInt32Range AcceptableRange = FInt32Range{0, GetAllowedChildrenNumRange().GetUpperBound()};
+	if (!AcceptableRange.Contains(GetImmediateChildren().Num() + 1))
 	{
 		return false;
 	}
