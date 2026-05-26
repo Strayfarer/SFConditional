@@ -4,7 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "Conditional.h"
-#include "Conditional_Area_ScreenBox.generated.h"
+#include "Conditional_Spatial_ScreenBox.generated.h"
 
 namespace SF
 {
@@ -16,8 +16,8 @@ namespace SF
 	 * - FuzzyScore returns 0.f if outside box, else closeness [0.f - 1.f] to screen center.
 	 * - Supports Actors, SceneComponents, ActorComponents (using owner transform).
 	 */
-	UCLASS(DisplayName="AREA - Screen Box")
-	class SFCONDITIONAL_API UConditional_Area_ScreenBox : public UConditional
+	UCLASS(DisplayName="SPATIAL - Screen Box")
+	class SFCONDITIONAL_API UConditional_Spatial_ScreenBox : public UConditional
 	{
 		GENERATED_BODY()
 

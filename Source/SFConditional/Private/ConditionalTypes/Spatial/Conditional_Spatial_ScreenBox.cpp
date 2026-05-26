@@ -1,12 +1,12 @@
 ﻿// Copyright Strayfarer & Contributors. Released under the MIT license.
 
 
-#include "ConditionalTypes/Area/Conditional_Area_ScreenBox.h"
+#include "ConditionalTypes/Spatial/Conditional_Spatial_ScreenBox.h"
 
 #include "Engine/Canvas.h"
 #include "Kismet/GameplayStatics.h"
 
-SF::FConditionalAnswer SF::UConditional_Area_ScreenBox::EvaluateInternal_Implementation(
+SF::FConditionalAnswer SF::UConditional_Spatial_ScreenBox::EvaluateInternal_Implementation(
 	const FConditionalEvaluationContext& EvaluationContext)
 {
 	using namespace SF::Conditional;
@@ -85,14 +85,14 @@ SF::FConditionalAnswer SF::UConditional_Area_ScreenBox::EvaluateInternal_Impleme
 	return FConditionalAnswer{bBinaryAnswer, FuzzyAnswer};
 }
 
-FString SF::UConditional_Area_ScreenBox::CreateConfigurationDebugString_Implementation() const
+FString SF::UConditional_Spatial_ScreenBox::CreateConfigurationDebugString_Implementation() const
 {
 	return FString::Printf(TEXT("T:%.0f, R:%.0f, B:%.0f, L:%.0f"), 
 		TopDistance, RightDistance, BottomDistance, LeftDistance);
 }
 
 #if WITH_GAMEPLAY_DEBUGGER
-void SF::UConditional_Area_ScreenBox::VisualizeWithGameplayDebugger(FGameplayDebuggerCategory& Debugger, FGameplayDebuggerCanvasContext& Canvas)
+void SF::UConditional_Spatial_ScreenBox::VisualizeWithGameplayDebugger(FGameplayDebuggerCategory& Debugger, FGameplayDebuggerCanvasContext& Canvas)
 {
 	Super::VisualizeWithGameplayDebugger(Debugger, Canvas);
 

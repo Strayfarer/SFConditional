@@ -4,7 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "Conditional.h"
-#include "Conditional_Area_WorldDistanceRadius.generated.h"
+#include "Conditional_Spatial_Sphere.generated.h"
 
 namespace SF
 {
@@ -15,8 +15,8 @@ namespace SF
 	 * - FuzzyScore returns 0.f if outside the radius, else closeness [0.f - 1.f] to instigator.
 	 * - Supports Actors, SceneComponents, ActorComponents (using owner transform).
 	 */
-	UCLASS(DisplayName="AREA - World Distance Radius")
-	class SFCONDITIONAL_API UConditional_Area_WorldDistanceRadius : public UConditional
+	UCLASS(DisplayName="SPATIAL - Sphere")
+	class SFCONDITIONAL_API UConditional_Spatial_Sphere : public UConditional
 	{
 		GENERATED_BODY()
 

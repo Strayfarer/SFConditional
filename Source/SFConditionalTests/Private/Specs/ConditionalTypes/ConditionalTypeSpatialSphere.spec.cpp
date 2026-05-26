@@ -2,7 +2,7 @@
 
 #if WITH_AUTOMATION_WORKER
 
-#include "ConditionalTypes/Area/Conditional_Area_WorldDistanceRadius.h"
+#include "ConditionalTypes/Spatial/Conditional_Spatial_Sphere.h"
 #include "Misc/AutomationTest.h"
 #include "Mocks/Conditional_MockActor.h"
 #include "Mocks/Conditional_MockObject.h"
@@ -10,20 +10,20 @@
 
 using namespace SF::Conditional;
 
-BEGIN_DEFINE_SPEC(FConditionalTypeAreaWorldDistanceRadiusSpec, "SF.Conditional.Types.Area.WorldDistanceRadius", EAutomationTestFlags_ApplicationContextMask | EAutomationTestFlags::ProductFilter)
+BEGIN_DEFINE_SPEC(FConditionalTypeSpatialSphereSpec, "SF.Conditional.Types.Spatial.Sphere", EAutomationTestFlags_ApplicationContextMask | EAutomationTestFlags::ProductFilter)
 	TSharedPtr<WeekendUtils::FScopedAutomationTestWorld> TestWorld;
-	TObjectPtr<SF::UConditional_Area_WorldDistanceRadius> Sut = nullptr;
+	TObjectPtr<SF::UConditional_Spatial_Sphere> Sut = nullptr;
 	TObjectPtr<UObject> TestObjectObject;
 	TObjectPtr<AActor> TestObjectActor;
 	TObjectPtr<UObject> InstigatorObject;
 	TObjectPtr<AActor> InstigatorActor;
-END_DEFINE_SPEC(FConditionalTypeAreaWorldDistanceRadiusSpec)
+END_DEFINE_SPEC(FConditionalTypeSpatialSphereSpec)
 
-void FConditionalTypeAreaWorldDistanceRadiusSpec::Define()
+void FConditionalTypeSpatialSphereSpec::Define()
 {
 	BeforeEach([this]
 	{
-		Sut = NewObject<SF::UConditional_Area_WorldDistanceRadius>();
+		Sut = NewObject<SF::UConditional_Spatial_Sphere>();
 		
 		TestWorld = MakeShared<WeekendUtils::FScopedAutomationTestWorld>("TestWorld");
 		TestWorld->InitializeGame();
