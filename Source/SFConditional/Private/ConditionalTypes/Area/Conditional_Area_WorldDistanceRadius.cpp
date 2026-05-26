@@ -50,8 +50,7 @@ void SF::UConditional_Area_WorldDistanceRadius::VisualizeWithGameplayDebugger(FG
 
 	const APawn* Pawn = PC->GetPawn();
 	if (!Pawn) return;
-
-	Debugger.AddShape(FGameplayDebuggerShape::MakeCapsule(Pawn->GetActorLocation(), Radius, 25.f, FColor::Red));
-	Debugger.AddShape(FGameplayDebuggerShape::MakeCylinder(Pawn->GetActorLocation(), Radius, 25.f, FColor::Orange));
+	
+	DrawDebugSphere(PC->GetWorld(), Pawn->GetActorLocation(), Radius, 64, FColor::Orange);
 }
 #endif // WITH_GAMEPLAY_DEBUGGER
