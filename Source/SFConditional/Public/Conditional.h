@@ -36,6 +36,9 @@ namespace SF
 		virtual void PostEditChangeProperty(struct FPropertyChangedEvent& PropertyChangedEvent) override;
 #endif
 		// --
+		
+		UFUNCTION(BlueprintCallable, Category="Conditional")
+		virtual UConditional* Instantiate(UObject* Outer, bool bIsRoot = false);
 
 		/**
 		 * Evaluate this conditional for an object.

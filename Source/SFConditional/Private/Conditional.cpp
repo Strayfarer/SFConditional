@@ -70,6 +70,11 @@ void SF::UConditional::PostEditChangeProperty(struct FPropertyChangedEvent& Prop
 }
 #endif
 
+SF::UConditional* SF::UConditional::Instantiate(UObject* Outer, bool bIsRoot)
+{
+	return NewObject<UConditional>(Outer, StaticClass(), NAME_None, RF_NoFlags, this);
+}
+
 SF::FConditionalAnswer SF::UConditional::EvaluateObject(UObject* TestObject)
 {
 	return Evaluate(FConditionalEvaluationContext{ TestObject });

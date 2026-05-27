@@ -3,6 +3,20 @@
 
 #include "ConditionalTypes/Logic/Conditional_Logic_MultiCombine.h"
 
+SF::UConditional* SF::UConditional_Logic_MultiCombine::Instantiate(UObject* Outer, bool bIsRoot)
+{
+	auto* Instance = Cast<UConditional_Logic_MultiCombine>(Super::Instantiate(Outer, TODO));
+	
+	TArray<UConditional*> InstantiatedChildren{};
+	for (UConditional* Child : Conditions)
+	{
+		InstantiatedChildren.Emplace(Child->Instantiate(Outer, TODO));
+	}
+	
+	Instance->Conditions = InstantiatedChildren;
+	return Instance;
+}
+
 SF::FConditionalAnswer SF::UConditional_Logic_MultiCombine::EvaluateInternal_Implementation(const FConditionalEvaluationContext& EvaluationContext)
 {
 	bool bHadError = false;

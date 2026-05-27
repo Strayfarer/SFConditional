@@ -3,6 +3,20 @@
 
 #include "ConditionalTypes/Logic/Conditional_Logic_Or.h"
 
+SF::UConditional* SF::UConditional_Logic_Or::Instantiate(UObject* Outer, bool bIsRoot)
+{
+	auto* Instance = Cast<UConditional_Logic_Or>(Super::Instantiate(Outer, TODO));
+	
+	TArray<UConditional*> InstantiatedChildren{};
+	for (UConditional* Child : Conditions)
+	{
+		InstantiatedChildren.Emplace(Child->Instantiate(Outer, TODO));
+	}
+	
+	Instance->Conditions = InstantiatedChildren;
+	return Instance;
+}
+
 SF::FConditionalAnswer SF::UConditional_Logic_Or::EvaluateInternal_Implementation(const FConditionalEvaluationContext& EvaluationContext)
 {
 	bool bHadError = false;

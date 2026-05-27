@@ -5,6 +5,20 @@
 
 #include "ConditionalDebugTrace.h"
 
+SF::UConditional* SF::UConditional_Logic_And::Instantiate(UObject* Outer, bool bIsRoot)
+{
+	auto* Instance = Cast<UConditional_Logic_And>(Super::Instantiate(Outer, TODO));
+	
+	TArray<UConditional*> InstantiatedChildren{};
+	for (UConditional* Child : Conditions)
+	{
+		InstantiatedChildren.Emplace(Child->Instantiate(Outer, TODO));
+	}
+	
+	Instance->Conditions = InstantiatedChildren;
+	return Instance;
+}
+
 SF::FConditionalAnswer SF::UConditional_Logic_And::EvaluateInternal_Implementation(const FConditionalEvaluationContext& EvaluationContext)
 {
 	bool bHadError = false;

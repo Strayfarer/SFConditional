@@ -52,6 +52,7 @@ namespace SF
 
 	protected:
 		// UConditional
+		virtual UConditional* Instantiate(UObject* Outer, bool bIsRoot) override;
 		virtual FConditionalAnswer EvaluateInternal_Implementation(
 			const FConditionalEvaluationContext& EvaluationContext) override;
 		virtual FInt32Range GetAllowedChildrenNumRange_Implementation() const override;

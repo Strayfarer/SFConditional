@@ -3,6 +3,13 @@
 
 #include "ConditionalTypes/Logic/Conditional_Logic_Not.h"
 
+SF::UConditional* SF::UConditional_Logic_Not::Instantiate(UObject* Outer, bool bIsRoot)
+{
+	auto* Instance = Cast<UConditional_Logic_Not>(Super::Instantiate(Outer, TODO));
+	Instance->Condition = Condition->Instantiate(Outer, TODO);
+	return Instance;
+}
+
 SF::FConditionalAnswer SF::UConditional_Logic_Not::EvaluateInternal_Implementation(const FConditionalEvaluationContext& EvaluationContext)
 {
 	const FConditionalAnswer Answer = Condition->Evaluate(EvaluationContext);
