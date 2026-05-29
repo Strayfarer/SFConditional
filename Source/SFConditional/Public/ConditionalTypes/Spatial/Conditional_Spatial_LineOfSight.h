@@ -36,7 +36,7 @@ namespace SF
 		float MaxDistance = 200.f;
 		
 		UPROPERTY(EditAnywhere)
-		ECollisionChannel CollisionChannelToCheck = ECC_Visibility;
+		TEnumAsByte<ECollisionChannel> CollisionChannelToCheck = ECC_Visibility;
 		
 		UPROPERTY(EditAnywhere)
 		bool bShouldIgnoreInstigator = true;
