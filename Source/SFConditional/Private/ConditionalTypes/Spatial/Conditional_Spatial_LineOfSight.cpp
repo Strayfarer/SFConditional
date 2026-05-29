@@ -22,7 +22,7 @@ SF::FConditionalAnswer SF::UConditional_Spatial_LineOfSight::EvaluateInternal_Im
 		return Answer::Error::NoPlayerController(EvaluationContext.GetWorld());
 	}
 
-	const FVector CameraForward = Pc->PlayerCameraManager->GetActorForwardVector();
+	const FVector CameraForward = Pc->GetControlRotation().Vector();
 	const FVector TraceStart = InstigatorWorldTransform.GetValue().GetLocation();
 	const FVector TraceEnd = TraceStart + MaxDistance * CameraForward;
 	
