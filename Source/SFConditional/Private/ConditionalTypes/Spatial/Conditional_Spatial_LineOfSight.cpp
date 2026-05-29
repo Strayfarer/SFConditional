@@ -48,6 +48,18 @@ FString SF::UConditional_Spatial_LineOfSight::CreateConfigurationDebugString_Imp
 void SF::UConditional_Spatial_LineOfSight::VisualizeWithGameplayDebugger(FGameplayDebuggerCategory& Debugger,
 	FGameplayDebuggerCanvasContext& Canvas)
 {
+	Super::VisualizeWithGameplayDebugger(Debugger, Canvas);
+
+	const APlayerController* PC = Canvas.PlayerController.Get();
+	if (!PC) return;
 	
+	const APawn* Pawn = PC->GetPawn();
+	if (!Pawn) return;
+
+	const FVector CameraForward = PC->GetControlRotation().Vector();
+	const FVector StartLocation = Pawn->GetActorLocation();
+	
+	DrawDebugLine(PC->GetWorld(), StartLocation, StartLocation + MaxDistance * CameraForward, FColor::Yellow,
+		false, -1, 0, 3);
 }
 #endif // WITH_GAMEPLAY_DEBUGGER
