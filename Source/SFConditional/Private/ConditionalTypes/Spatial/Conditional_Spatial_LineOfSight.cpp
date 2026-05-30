@@ -3,45 +3,34 @@
 
 #include "ConditionalTypes/Spatial/Conditional_Spatial_LineOfSight.h"
 
-#include "Kismet/GameplayStatics.h"
+#include "Components/LineOfSightComponent.h"
 
 SF::FConditionalAnswer SF::UConditional_Spatial_LineOfSight::EvaluateInternal_Implementation(
 	const FConditionalEvaluationContext& EvaluationContext)
 {
 	using namespace SF::Conditional;
 	
-	const TOptional<FTransform> InstigatorWorldTransform = EvaluationContext.TryGetInstigatorTransform();
-	if (!InstigatorWorldTransform.IsSet())
+	auto* LineOfSightComponent = EvaluationContext.TryGetInstigatorActorComponent<ULineOfSightComponent>();
+	if (!LineOfSightComponent)
+		return Answer::No();
+	
+	const FHitResult HitResult = LineOfSightComponent->GetCurrentHitResult();
+	if (!HitResult.bBlockingHit)
+		return Answer::No();
+	
+	if (HitResult.Component != EvaluationContext.GetTestObject() 
+		&& HitResult.GetActor() != EvaluationContext.TryGetTestObjectActor()
+		&& !HitResult.GetActor()->GetComponents().Contains(EvaluationContext.TryGetTestObjectActorComponent<UActorComponent>()))
 	{
-		return Answer::Error::Instigator::NoTransformProvider(EvaluationContext.GetInstigator());
+		return Answer::No();
 	}
 	
-	const APlayerController* Pc = UGameplayStatics::GetPlayerController(EvaluationContext.GetWorld(), 0);
-	if (!Pc || !Pc->GetLocalPlayer())
-	{
-		return Answer::Error::NoPlayerController(EvaluationContext.GetWorld());
-	}
-
-	const FVector CameraForward = Pc->GetControlRotation().Vector();
-	const FVector TraceStart = InstigatorWorldTransform.GetValue().GetLocation();
-	const FVector TraceEnd = TraceStart + MaxDistance * CameraForward;
-	
-	FCollisionQueryParams TraceParams;
-	TraceParams.TraceTag = GetFName();
-	if (bShouldIgnoreInstigator)
-	{
-		TraceParams.AddIgnoredSourceObject(EvaluationContext.GetInstigator());
-	}
-		
-	FHitResult HitResult;
-	const bool bDidHit = EvaluationContext.GetWorld()
-		->LineTraceSingleByChannel(HitResult, TraceStart, TraceEnd, CollisionChannelToCheck, TraceParams);
-	return Answer::FromBool(bDidHit);
+	return Answer::Create(true, 1.f - HitResult.Distance / LineOfSightComponent->GetTraceDistance());
 }
 
 FString SF::UConditional_Spatial_LineOfSight::CreateConfigurationDebugString_Implementation() const
 {
-	return FString::Printf(TEXT("MaxDistance %f"), MaxDistance);
+	return FString::Printf(TEXT(""));
 }
 
 #if WITH_GAMEPLAY_DEBUGGER
@@ -56,10 +45,18 @@ void SF::UConditional_Spatial_LineOfSight::VisualizeWithGameplayDebugger(FGamepl
 	const APawn* Pawn = PC->GetPawn();
 	if (!Pawn) return;
 
+	const auto* LineOfSightComponent = Pawn->GetComponentByClass<ULineOfSightComponent>();
+	if (!LineOfSightComponent) return;
+	
 	const FVector CameraForward = PC->GetControlRotation().Vector();
 	const FVector StartLocation = Pawn->GetActorLocation();
 	
-	DrawDebugLine(PC->GetWorld(), StartLocation, StartLocation + MaxDistance * CameraForward, FColor::Yellow,
+	const FHitResult& HitResult = LineOfSightComponent->GetCurrentHitResult();
+	
+	DrawDebugLine(PC->GetWorld(), 
+		StartLocation + CameraForward * 50.f, 
+		StartLocation + CameraForward * LineOfSightComponent->GetTraceDistance(), 
+		HitResult.bBlockingHit ? FColor(0.f,255.f,0.f, 0.3f) : FColor(255.f,255.f,0.f, 0.3f),
 		false, -1, 0, 3);
 }
 #endif // WITH_GAMEPLAY_DEBUGGER

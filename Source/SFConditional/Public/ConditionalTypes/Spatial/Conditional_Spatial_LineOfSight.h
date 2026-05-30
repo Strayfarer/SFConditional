@@ -31,14 +31,5 @@ namespace SF
 												   FGameplayDebuggerCanvasContext& Canvas) override;
 #endif // WITH_GAMEPLAY_DEBUGGER
 		// --
-		
-		UPROPERTY(EditAnywhere)
-		float MaxDistance = 200.f;
-		
-		UPROPERTY(EditAnywhere)
-		TEnumAsByte<ECollisionChannel> CollisionChannelToCheck = ECC_Visibility;
-		
-		UPROPERTY(EditAnywhere)
-		bool bShouldIgnoreInstigator = true;
 	};
 }
