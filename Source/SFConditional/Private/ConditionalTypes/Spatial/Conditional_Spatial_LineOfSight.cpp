@@ -12,7 +12,7 @@ SF::FConditionalAnswer SF::UConditional_Spatial_LineOfSight::EvaluateInternal_Im
 	
 	auto* LineOfSightComponent = EvaluationContext.TryGetInstigatorActorComponent<ULineOfSightComponent>();
 	if (!LineOfSightComponent)
-		return Answer::No();
+		return Answer::Error::NoLineOfSightComponentAvailable();
 	
 	const FHitResult HitResult = LineOfSightComponent->GetCurrentHitResult();
 	if (!HitResult.bBlockingHit)
@@ -60,3 +60,9 @@ void SF::UConditional_Spatial_LineOfSight::VisualizeWithGameplayDebugger(FGamepl
 		false, -1, 0, 3);
 }
 #endif // WITH_GAMEPLAY_DEBUGGER
+
+const SF::FConditionalAnswer& SF::Conditional::Answer::Error::NoLineOfSightComponentAvailable()
+{
+	static FConditionalAnswer Answer = FromErrorMsg(FString("No LineOfSightComponent could be found on the instigator!"));
+	return Answer;
+}
