@@ -5,16 +5,15 @@
 #include "CoreMinimal.h"
 #include "Conditional.h"
 
-#include "Conditional_Actor_HasTag.generated.h"
+#include "Conditional_Component_HasTag.generated.h"
 
 namespace SF
 {
 	/**
-	 * Returns Yes if the tested actor (test object = actor or actor component owner) 
-	 * and has the configured tags, No otherwise.
+	 * Returns Yes if the tested actor component has the configured tags, No otherwise.
 	 */
-	UCLASS(DisplayName="ACTOR - Has Tag")
-	class SFCONDITIONAL_API UConditional_Actor_HasTag : public UConditional
+	UCLASS(DisplayName="COMPONENT - Has Tag")
+	class SFCONDITIONAL_API UConditional_Component_HasTag : public UConditional
 	{
 		GENERATED_BODY()
 
@@ -35,7 +34,7 @@ namespace SF
 		virtual FString CreateConfigurationDebugString_Implementation() const override;
 		// --
 
-		/** The conditional returns true, if the tested actor has these tags. */
+		/** The conditional returns true, if the tested actor component has these tags. */
 		UPROPERTY(EditDefaultsOnly)
 		TSet<FName> Tags{};
 	};

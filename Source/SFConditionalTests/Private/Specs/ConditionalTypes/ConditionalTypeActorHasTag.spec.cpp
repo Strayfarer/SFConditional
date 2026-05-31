@@ -5,6 +5,7 @@
 #include "ConditionalTypes/Actor/Conditional_Actor_HasTag.h"
 #include "Misc/AutomationTest.h"
 #include "Mocks/Conditional_MockActor.h"
+#include "Mocks/Conditional_MockActorComponent.h"
 #include "Mocks/Conditional_MockObject.h"
 #include "TestWorld/AutomationTestWorld.h"
 
@@ -14,6 +15,7 @@ BEGIN_DEFINE_SPEC(FConditionalTypeActorHasTagSpec, "SF.Conditional.Types.Actor.H
 	TSharedPtr<WeekendUtils::FScopedAutomationTestWorld> TestWorld;
 	TObjectPtr<UObject> Object;
 	TObjectPtr<AActor> Actor;
+	TObjectPtr<UConditional_MockActorComponent> Component;
 	TObjectPtr<SF::UConditional_Actor_HasTag> Sut = nullptr;
 	FName TagA = FName("A");
 	FName TagB = FName("B");
@@ -24,14 +26,33 @@ void FConditionalTypeActorHasTagSpec::Define()
 	BeforeEach([this]
 	{
 		Sut = NewObject<SF::UConditional_Actor_HasTag>();
-		Object = NewObject<UConditional_MockObject>();
 	});
 	
 	Describe("with UObject as TestObject", [this]
 	{
 		It("should yield NoActorProvider error state", [this]
 		{
+			Object = NewObject<UConditional_MockObject>();
 			TestEqual("Conditional Answer", Sut->EvaluateObject(Object), Answer::Error::TestObject::NoActorProvider(Object));
+		});
+	});
+	
+	Describe("with UActorComponent as TestObject and only owner actor having required tag A configured", [this]
+	{
+		It("should yield YES answer", [this]
+		{
+			TestWorld = MakeShared<WeekendUtils::FScopedAutomationTestWorld>("TestWorld");
+			TestWorld->InitializeGame();
+			Actor = TestWorld->AsRef().SpawnActor<AConditional_MockActor>();
+			const FTransform Transform = FTransform::Identity;
+			Component = Cast<UConditional_MockActorComponent>(Actor->AddComponentByClass
+				(
+					UConditional_MockActorComponent::StaticClass(), 
+					false, Transform, false
+				));
+			Actor->Tags = { TagA };
+			Sut->SetTags({ TagA });
+			TestEqual("Conditional Answer", Sut->EvaluateObject(Component), Answer::Yes());
 		});
 	});
 	
