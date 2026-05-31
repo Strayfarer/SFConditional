@@ -1,0 +1,34 @@
+﻿// Copyright Strayfarer & Contributors. Released under the MIT license.
+
+#pragma once
+
+#include "CoreMinimal.h"
+#include "Conditional.h"
+
+#include "Conditional_Spatial_IsTargetFacingInstigator.generated.h"
+
+namespace SF
+{
+	/**
+	* Returns whether the target is facing the instigator.
+	* 
+	* Notes:
+	* - FuzzyScore returns 0.f if outside the max angle, else closeness [0.f - 1.f] to the optimal angle (facing straight).
+	* - Supports Actors, SceneComponents, ActorComponents (using owner transform).
+	*/
+	UCLASS(DisplayName="SPATIAL - Is Target Facing Instigator")
+	class SFCONDITIONAL_API UConditional_Spatial_IsTargetFacingInstigator : public UConditional
+	{
+		GENERATED_BODY()
+
+	protected:
+		// UConditional
+		virtual FConditionalAnswer EvaluateInternal_Implementation(
+			const FConditionalEvaluationContext& EvaluationContext) override;
+		virtual FString CreateConfigurationDebugString_Implementation() const override;
+		// --
+
+		UPROPERTY(EditDefaultsOnly, meta=(Units="deg"))
+		float MaxAngle = 30.f;
+	};
+}

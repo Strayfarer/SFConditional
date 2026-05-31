@@ -10,7 +10,12 @@
 namespace SF
 {
 	/**
+	 * Returns whether the tested location is inside the specified screen circle
+	 * of the player viewport.
 	 * 
+	 * Notes:
+	 * - FuzzyScore returns 0.f if outside box, else closeness [0.f - 1.f] to screen center.
+	 * - Supports Actors, SceneComponents, ActorComponents (using owner transform).
 	 */
 	UCLASS(DisplayName="SPATIAL - Screen Circle")
 	class SFCONDITIONAL_API UConditional_Spatial_ScreenCircle : public UConditional
