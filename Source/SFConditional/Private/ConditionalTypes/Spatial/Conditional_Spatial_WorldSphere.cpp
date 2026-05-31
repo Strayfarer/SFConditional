@@ -1,9 +1,9 @@
 ﻿// Copyright Strayfarer & Contributors. Released under the MIT license.
 
 
-#include "ConditionalTypes/Spatial/Conditional_Spatial_Sphere.h"
+#include "ConditionalTypes/Spatial/Conditional_Spatial_WorldSphere.h"
 
-SF::FConditionalAnswer SF::UConditional_Spatial_Sphere::EvaluateInternal_Implementation(
+SF::FConditionalAnswer SF::UConditional_Spatial_WorldSphere::EvaluateInternal_Implementation(
 	const FConditionalEvaluationContext& EvaluationContext)
 {
 	using namespace SF::Conditional;
@@ -34,13 +34,13 @@ SF::FConditionalAnswer SF::UConditional_Spatial_Sphere::EvaluateInternal_Impleme
 	return { bBinaryAnswer, FuzzyAnswer };
 }
 
-FString SF::UConditional_Spatial_Sphere::CreateConfigurationDebugString_Implementation() const
+FString SF::UConditional_Spatial_WorldSphere::CreateConfigurationDebugString_Implementation() const
 {
 	return FString::Printf(TEXT("R:%.0f"), Radius);
 }
 
 #if WITH_GAMEPLAY_DEBUGGER
-void SF::UConditional_Spatial_Sphere::VisualizeWithGameplayDebugger(FGameplayDebuggerCategory& Debugger,
+void SF::UConditional_Spatial_WorldSphere::VisualizeWithGameplayDebugger(FGameplayDebuggerCategory& Debugger,
 	FGameplayDebuggerCanvasContext& Canvas)
 {
 	Super::VisualizeWithGameplayDebugger(Debugger, Canvas);

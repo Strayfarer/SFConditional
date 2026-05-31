@@ -2,7 +2,7 @@
 
 #if WITH_AUTOMATION_WORKER
 
-#include "ConditionalTypes/Spatial/Conditional_Spatial_Sphere.h"
+#include "ConditionalTypes/Spatial/Conditional_Spatial_WorldSphere.h"
 #include "Misc/AutomationTest.h"
 #include "Mocks/Conditional_MockActor.h"
 #include "Mocks/Conditional_MockObject.h"
@@ -12,7 +12,7 @@ using namespace SF::Conditional;
 
 BEGIN_DEFINE_SPEC(FConditionalTypeSpatialSphereSpec, "SF.Conditional.Types.Spatial.Sphere", EAutomationTestFlags_ApplicationContextMask | EAutomationTestFlags::ProductFilter)
 	TSharedPtr<WeekendUtils::FScopedAutomationTestWorld> TestWorld;
-	TObjectPtr<SF::UConditional_Spatial_Sphere> Sut = nullptr;
+	TObjectPtr<SF::UConditional_Spatial_WorldSphere> Sut = nullptr;
 	TObjectPtr<UObject> TestObjectObject;
 	TObjectPtr<AActor> TestObjectActor;
 	TObjectPtr<UObject> InstigatorObject;
@@ -23,7 +23,7 @@ void FConditionalTypeSpatialSphereSpec::Define()
 {
 	BeforeEach([this]
 	{
-		Sut = NewObject<SF::UConditional_Spatial_Sphere>();
+		Sut = NewObject<SF::UConditional_Spatial_WorldSphere>();
 		
 		TestWorld = MakeShared<WeekendUtils::FScopedAutomationTestWorld>("TestWorld");
 		TestWorld->InitializeGame();

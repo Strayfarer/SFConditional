@@ -56,7 +56,7 @@ void SF::UConditional_Spatial_LineOfSight::VisualizeWithGameplayDebugger(FGamepl
 	DrawDebugLine(PC->GetWorld(), 
 		StartLocation + CameraForward * FMath::Min(35.f, LineOfSightComponent->GetTraceDistance()),
 		StartLocation + CameraForward * LineOfSightComponent->GetTraceDistance(), 
-		HitResult.bBlockingHit ? FColor(0.f,255.f,0.f) : FColor(255.f,255.f,0.f),
+		HitResult.bBlockingHit ? FColorList::Grey : FColor::Black,
 		false, -1, 0, 1);
 }
 #endif // WITH_GAMEPLAY_DEBUGGER
