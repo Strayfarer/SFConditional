@@ -1,9 +1,9 @@
 ﻿// Copyright Strayfarer & Contributors. Released under the MIT license.
 
 
-#include "ConditionalTypes/Spatial/Conditional_Spatial_IsTargetFacingInstigator.h"
+#include "ConditionalTypes/Spatial/Conditional_Spatial_IsTestObjectFacingInstigator.h"
 
-SF::FConditionalAnswer SF::UConditional_Spatial_IsTargetFacingInstigator::EvaluateInternal_Implementation(
+SF::FConditionalAnswer SF::UConditional_Spatial_IsTestObjectFacingInstigator::EvaluateInternal_Implementation(
 	const FConditionalEvaluationContext& EvaluationContext)
 {
 	using namespace SF::Conditional;
@@ -36,13 +36,13 @@ SF::FConditionalAnswer SF::UConditional_Spatial_IsTargetFacingInstigator::Evalua
 	return { bBinaryAnswer, FuzzyAnswer };
 }
 
-FString SF::UConditional_Spatial_IsTargetFacingInstigator::CreateConfigurationDebugString_Implementation() const
+FString SF::UConditional_Spatial_IsTestObjectFacingInstigator::CreateConfigurationDebugString_Implementation() const
 {
 	return FString::Printf(TEXT("MaxAngle: %.0f°"), MaxAngle);
 }
 
 #if WITH_GAMEPLAY_DEBUGGER
-void SF::UConditional_Spatial_IsTargetFacingInstigator::VisualizeTestObjectWithGameplayDebugger(
+void SF::UConditional_Spatial_IsTestObjectFacingInstigator::VisualizeTestObjectWithGameplayDebugger(
 	const FConditionalEvaluationContext& EvaluationContext, FGameplayDebuggerCategory& Debugger,
 	FGameplayDebuggerCanvasContext& Canvas)
 {
