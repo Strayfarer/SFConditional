@@ -29,9 +29,9 @@ SF::FConditionalAnswer SF::UConditional_Spatial_IsTargetFacingInstigator::Evalua
 	const bool bBinaryAnswer = DegreesAngle <= MaxAngle / 2.f;
 	
 	float FuzzyAnswer = 0.f;
-	if      (!bBinaryAnswer) { FuzzyAnswer = 0.f; }
-	else if (MaxAngle > 0.f)   { FuzzyAnswer = 1.f - DegreesAngle / MaxAngle; }
-	else if (MaxAngle == 0.f)  { FuzzyAnswer = 0.f; }
+	if      (!bBinaryAnswer)  { FuzzyAnswer = 0.f; }
+	else if (MaxAngle > 0.f)  { FuzzyAnswer = 1.f - DegreesAngle / MaxAngle; }
+	else if (MaxAngle == 0.f) { FuzzyAnswer = 0.f; }
 	
 	return { bBinaryAnswer, FuzzyAnswer };
 }

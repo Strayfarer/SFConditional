@@ -26,6 +26,10 @@ namespace SF
 		virtual FConditionalAnswer EvaluateInternal_Implementation(
 			const FConditionalEvaluationContext& EvaluationContext) override;
 		virtual FString CreateConfigurationDebugString_Implementation() const override;
+#if WITH_GAMEPLAY_DEBUGGER
+		virtual void VisualizeTestObjectWithGameplayDebugger(const FConditionalEvaluationContext& EvaluationContext,
+												   FGameplayDebuggerCategory& Debugger, FGameplayDebuggerCanvasContext& Canvas) override;
+#endif // WITH_GAMEPLAY_DEBUGGER
 		// --
 
 		UPROPERTY(EditDefaultsOnly, meta=(Units="deg"))

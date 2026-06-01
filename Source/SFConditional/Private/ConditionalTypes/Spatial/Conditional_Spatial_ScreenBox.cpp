@@ -91,9 +91,9 @@ FString SF::UConditional_Spatial_ScreenBox::CreateConfigurationDebugString_Imple
 }
 
 #if WITH_GAMEPLAY_DEBUGGER
-void SF::UConditional_Spatial_ScreenBox::VisualizeWithGameplayDebugger(FGameplayDebuggerCategory& Debugger, FGameplayDebuggerCanvasContext& Canvas)
+void SF::UConditional_Spatial_ScreenBox::VisualizeWithGameplayDebugger(const FConditionalEvaluationContext& EvaluationContext, FGameplayDebuggerCategory& Debugger, FGameplayDebuggerCanvasContext& Canvas)
 {
-	Super::VisualizeWithGameplayDebugger(Debugger, Canvas);
+	Super::VisualizeWithGameplayDebugger(EvaluationContext, Debugger, Canvas);
 
 	const APlayerController* Pc = EvaluationContext.TryGetInstigatorPlayerController();
 	if (!Pc || !Pc->GetLocalPlayer()) return;

@@ -28,8 +28,8 @@ namespace SF
 			const FConditionalEvaluationContext& EvaluationContext) override;
 		virtual FString CreateConfigurationDebugString_Implementation() const override;
 #if WITH_GAMEPLAY_DEBUGGER
-		virtual void VisualizeWithGameplayDebugger(FGameplayDebuggerCategory& Debugger,
-												   FGameplayDebuggerCanvasContext& Canvas) override;
+		virtual void VisualizeWithGameplayDebugger(
+			const FConditionalEvaluationContext& EvaluationContext, FGameplayDebuggerCategory& Debugger, FGameplayDebuggerCanvasContext& Canvas) override;
 #endif // WITH_GAMEPLAY_DEBUGGER
 		// --
 

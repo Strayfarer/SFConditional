@@ -167,7 +167,11 @@ FString SF::UConditional::CreateConfigurationDebugString_Implementation() const
 }
 
 #if WITH_GAMEPLAY_DEBUGGER
-void SF::UConditional::VisualizeWithGameplayDebugger(FGameplayDebuggerCategory& Debugger, FGameplayDebuggerCanvasContext& Canvas) {}
+void SF::UConditional::VisualizeWithGameplayDebugger(const FConditionalEvaluationContext& EvaluationContext, 
+	FGameplayDebuggerCategory& Debugger, FGameplayDebuggerCanvasContext& Canvas) {}
+
+void SF::UConditional::VisualizeTestObjectWithGameplayDebugger(const FConditionalEvaluationContext& EvaluationContext,
+	FGameplayDebuggerCategory& Debugger, FGameplayDebuggerCanvasContext& Canvas) {}
 #endif WITH_GAMEPLAY_DEBUGGER
 
 #if WITH_EDITOR

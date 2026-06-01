@@ -34,11 +34,9 @@ FString SF::UConditional_Spatial_LineOfSight::CreateConfigurationDebugString_Imp
 }
 
 #if WITH_GAMEPLAY_DEBUGGER
-void SF::UConditional_Spatial_LineOfSight::VisualizeWithGameplayDebugger(FGameplayDebuggerCategory& Debugger,
-	FGameplayDebuggerCanvasContext& Canvas)
+void SF::UConditional_Spatial_LineOfSight::VisualizeWithGameplayDebugger(
+	const FConditionalEvaluationContext& EvaluationContext, FGameplayDebuggerCategory& Debugger, FGameplayDebuggerCanvasContext& Canvas)
 {
-	Super::VisualizeWithGameplayDebugger(Debugger, Canvas);
-
 	Super::VisualizeWithGameplayDebugger(EvaluationContext, Debugger, Canvas);
 	
 	const APlayerController* Pc = EvaluationContext.TryGetInstigatorPlayerController();

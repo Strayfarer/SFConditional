@@ -77,8 +77,11 @@ namespace SF
 
 #if WITH_GAMEPLAY_DEBUGGER
 		/** Generate a visualization of this conditional for the gameplay debugger. */
-		virtual void VisualizeWithGameplayDebugger(FGameplayDebuggerCategory& Debugger,
-		                                           FGameplayDebuggerCanvasContext& Canvas);
+		virtual void VisualizeWithGameplayDebugger(const FConditionalEvaluationContext& EvaluationContext, 
+													FGameplayDebuggerCategory& Debugger, FGameplayDebuggerCanvasContext& Canvas);
+		/** Generate a visualization for a specific target evaluation by this conditional for the gameplay debugger. */
+		virtual void VisualizeTestObjectWithGameplayDebugger(const FConditionalEvaluationContext& EvaluationContext,
+													FGameplayDebuggerCategory& Debugger, FGameplayDebuggerCanvasContext& Canvas);
 #endif // WITH_GAMEPLAY_DEBUGGER
 
 #if WITH_EDITOR

@@ -40,11 +40,9 @@ FString SF::UConditional_Spatial_WorldSphere::CreateConfigurationDebugString_Imp
 }
 
 #if WITH_GAMEPLAY_DEBUGGER
-void SF::UConditional_Spatial_WorldSphere::VisualizeWithGameplayDebugger(FGameplayDebuggerCategory& Debugger,
-	FGameplayDebuggerCanvasContext& Canvas)
+void SF::UConditional_Spatial_WorldSphere::VisualizeWithGameplayDebugger(
+	const FConditionalEvaluationContext& EvaluationContext, FGameplayDebuggerCategory& Debugger, FGameplayDebuggerCanvasContext& Canvas)
 {
-	Super::VisualizeWithGameplayDebugger(Debugger, Canvas);
-
 	Super::VisualizeWithGameplayDebugger(EvaluationContext, Debugger, Canvas);
 	
 	const TOptional<FTransform> InstigatorTransform = EvaluationContext.TryGetInstigatorTransform();
