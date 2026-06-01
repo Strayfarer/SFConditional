@@ -5,6 +5,15 @@
 
 #include "ConditionalLog.h"
 
+UWorld* SF::FConditionalEvaluationContext::GetWorld() const
+{
+	if (TestObject)
+		return TestObject->GetWorld();
+	if (Instigator)
+		return Instigator->GetWorld();
+	return nullptr;
+}
+
 AActor* SF::FConditionalEvaluationContext::TryGetTestObjectActor() const
 {
 	if (AActor* Actor = Cast<AActor>(TestObject))
@@ -16,6 +25,20 @@ AActor* SF::FConditionalEvaluationContext::TryGetTestObjectActor() const
 		return ActorComponent->GetOwner();
 	}
 	return nullptr;
+}
+
+AController* SF::FConditionalEvaluationContext::TryGetTestObjectController() const
+{
+	if (const APawn* AsPawn = Cast<APawn>(TryGetTestObjectActor()))
+		return AsPawn->GetController();
+	if (AController* AsController = Cast<AController>(TryGetTestObjectActor()))
+		return AsController;
+	return nullptr;
+}
+
+APlayerController* SF::FConditionalEvaluationContext::TryGetTestObjectPlayerController() const
+{
+	return Cast<APlayerController>(TryGetTestObjectController());
 }
 
 TOptional<FTransform> SF::FConditionalEvaluationContext::TryGetTestObjectTransform() const
@@ -50,6 +73,20 @@ AActor* SF::FConditionalEvaluationContext::TryGetInstigatorActor() const
 		return ActorComponent->GetOwner();
 	}
 	return nullptr;
+}
+
+AController* SF::FConditionalEvaluationContext::TryGetInstigatorController() const
+{
+	if (const APawn* AsPawn = Cast<APawn>(TryGetInstigatorActor()))
+		return AsPawn->GetController();
+	if (AController* AsController = Cast<AController>(TryGetInstigatorActor()))
+		return AsController;
+	return nullptr;
+}
+
+APlayerController* SF::FConditionalEvaluationContext::TryGetInstigatorPlayerController() const
+{
+	return Cast<APlayerController>(TryGetInstigatorController());
 }
 
 TOptional<FTransform> SF::FConditionalEvaluationContext::TryGetInstigatorTransform() const

@@ -45,12 +45,12 @@ void SF::UConditional_Spatial_WorldSphere::VisualizeWithGameplayDebugger(FGamepl
 {
 	Super::VisualizeWithGameplayDebugger(Debugger, Canvas);
 
-	const APlayerController* PC = Canvas.PlayerController.Get();
-	if (!PC) return;
-
-	const APawn* Pawn = PC->GetPawn();
-	if (!Pawn) return;
+	Super::VisualizeWithGameplayDebugger(EvaluationContext, Debugger, Canvas);
 	
-	DrawDebugSphere(PC->GetWorld(), Pawn->GetActorLocation(), Radius, 64, FColor::Orange);
+	const TOptional<FTransform> InstigatorTransform = EvaluationContext.TryGetInstigatorTransform();
+	if (!InstigatorTransform.IsSet())
+		return;
+	
+	DrawDebugSphere(EvaluationContext.GetWorld(), InstigatorTransform.GetValue().GetLocation(), Radius, 64, FColor::Orange);
 }
 #endif // WITH_GAMEPLAY_DEBUGGER

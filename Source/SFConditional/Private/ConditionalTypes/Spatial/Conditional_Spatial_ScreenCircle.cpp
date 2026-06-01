@@ -3,14 +3,12 @@
 
 #include "ConditionalTypes/Spatial/Conditional_Spatial_ScreenCircle.h"
 
-#include "Kismet/GameplayStatics.h"
-
 SF::FConditionalAnswer SF::UConditional_Spatial_ScreenCircle::EvaluateInternal_Implementation(
 	const FConditionalEvaluationContext& EvaluationContext)
 {
 	using namespace SF::Conditional;
 	
-	const APlayerController* Pc = UGameplayStatics::GetPlayerController(EvaluationContext.GetWorld(), 0);
+	const APlayerController* Pc = EvaluationContext.TryGetInstigatorPlayerController();
 	if (!Pc || !Pc->GetLocalPlayer())
 	{
 		return Answer::Error::NoPlayerController(EvaluationContext.GetWorld());
@@ -62,11 +60,11 @@ FString SF::UConditional_Spatial_ScreenCircle::CreateConfigurationDebugString_Im
 void SF::UConditional_Spatial_ScreenCircle::VisualizeWithGameplayDebugger(FGameplayDebuggerCategory& Debugger,
 	FGameplayDebuggerCanvasContext& Canvas)
 {
-	const APlayerController* PC = Canvas.PlayerController.Get();
-	if (!PC) return;
+	const APlayerController* Pc = EvaluationContext.TryGetInstigatorPlayerController();
+	if (!Pc || !Pc->GetLocalPlayer()) return;
 
 	int32 ViewportX, ViewportY;
-	PC->GetViewportSize(ViewportX, ViewportY);
+	Pc->GetViewportSize(ViewportX, ViewportY);
 	if (ViewportX <= 0 || ViewportY <= 0) return;
 
 	const FVector2D ViewportCenter(ViewportX * 0.5f, ViewportY * 0.5f);

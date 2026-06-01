@@ -32,9 +32,10 @@ namespace SF
 		{}
 
 		/** Returns the world of the test object. */
-		FORCEINLINE UWorld* GetWorld() const { return TestObject ? TestObject->GetWorld() : nullptr; }
+		UWorld* GetWorld() const;
 
-		///// Object To Test /////
+		///////////////////////
+		///// Test Object /////
 
 		/** Returns the test object. */
 		FORCEINLINE UObject* GetTestObject() const { return TestObject; }
@@ -48,6 +49,18 @@ namespace SF
 		 * Attempts casting object to AActor and casting to UActorComponent and retrieving its owner actor.
 		 */
 		AActor* TryGetTestObjectActor() const;
+
+		/** 
+		 * Tries to resolve the test object as controller. 
+		 * Attempts resolving to AActor, casting to APawn and retrieving the pawns controller.
+		 */
+		AController* TryGetTestObjectController() const;
+		
+		/** 
+		 * Tries to resolve the test object as player controller. 
+		 * Attempts resolving to controller, then casting to player controller.
+		 */
+		APlayerController* TryGetTestObjectPlayerController() const;
 
 		/** 
 		 * Tries to resolve the test object's transform. 
@@ -67,6 +80,7 @@ namespace SF
 		template <typename TReturnClass>
 		FORCEINLINE TReturnClass* TryGetTestObjectActorComponent() const;
 
+		//////////////////////
 		///// Instigator /////
 
 		/** Returns the instigator. */
@@ -81,6 +95,18 @@ namespace SF
 		 * Attempts casting object to AActor and casting to UActorComponent and retrieving its owner actor.
 		 */
 		AActor* TryGetInstigatorActor() const;
+
+		/** 
+		 * Tries to resolve the test object as controller. 
+		 * Attempts resolving to AActor, casting to APawn and retrieving the pawns controller.
+		 */
+		AController* TryGetInstigatorController() const;
+		
+		/** 
+		 * Tries to resolve the test object as player controller. 
+		 * Attempts resolving to controller, then casting to player controller.
+		 */
+		APlayerController* TryGetInstigatorPlayerController() const;
 
 		/** 
 		 * Tries to resolve the instigators transform. 

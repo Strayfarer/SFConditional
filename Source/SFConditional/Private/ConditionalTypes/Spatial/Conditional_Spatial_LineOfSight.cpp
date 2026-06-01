@@ -9,8 +9,8 @@ SF::FConditionalAnswer SF::UConditional_Spatial_LineOfSight::EvaluateInternal_Im
 	const FConditionalEvaluationContext& EvaluationContext)
 {
 	using namespace SF::Conditional;
-	
-	auto* LineOfSightComponent = EvaluationContext.TryGetInstigatorActorComponent<ULineOfSightComponent>();
+
+	const auto* LineOfSightComponent = EvaluationContext.TryGetInstigatorActorComponent<ULineOfSightComponent>();
 	if (!LineOfSightComponent)
 		return Answer::Error::NoLineOfSightComponentAvailable();
 	
@@ -39,21 +39,23 @@ void SF::UConditional_Spatial_LineOfSight::VisualizeWithGameplayDebugger(FGamepl
 {
 	Super::VisualizeWithGameplayDebugger(Debugger, Canvas);
 
-	const APlayerController* PC = Canvas.PlayerController.Get();
-	if (!PC) return;
+	Super::VisualizeWithGameplayDebugger(EvaluationContext, Debugger, Canvas);
 	
-	const APawn* Pawn = PC->GetPawn();
-	if (!Pawn) return;
+	const APlayerController* Pc = EvaluationContext.TryGetInstigatorPlayerController();
+	if (!Pc || !Pc->GetLocalPlayer()) return;
 
-	const auto* LineOfSightComponent = Pawn->GetComponentByClass<ULineOfSightComponent>();
+	const auto* LineOfSightComponent = EvaluationContext.TryGetInstigatorActorComponent<ULineOfSightComponent>();
 	if (!LineOfSightComponent) return;
 	
-	const FVector CameraForward = PC->GetControlRotation().Vector();
-	const FVector StartLocation = Pawn->GetActorLocation();
+	const TOptional<FTransform> InstigatorTransform = EvaluationContext.TryGetInstigatorTransform();
+	if (!InstigatorTransform.IsSet()) return;
+	
+	const FVector CameraForward = Pc->GetControlRotation().Vector();
+	const FVector StartLocation = InstigatorTransform.GetValue().GetLocation();
 	
 	const FHitResult& HitResult = LineOfSightComponent->GetCurrentHitResult();
 	
-	DrawDebugLine(PC->GetWorld(), 
+	DrawDebugLine(EvaluationContext.GetWorld(), 
 		StartLocation + CameraForward * FMath::Min(35.f, LineOfSightComponent->GetTraceDistance()),
 		StartLocation + CameraForward * LineOfSightComponent->GetTraceDistance(), 
 		HitResult.bBlockingHit ? FColorList::Grey : FColor::Black,
