@@ -8,7 +8,6 @@
 using namespace SF::Conditional;
 
 BEGIN_DEFINE_SPEC(FConditionalAnswerSpec, "SF.Conditional.Answer", EAutomationTestFlags_ApplicationContextMask | EAutomationTestFlags::ProductFilter)
-	SF::FConditionalAnswer Sut{};
 END_DEFINE_SPEC(FConditionalAnswerSpec)
 
 void FConditionalAnswerSpec::Define()

@@ -78,28 +78,25 @@ SF::FConditionalAnswer SF::UConditional::EvaluateObject(UObject* TestObject)
 SF::FConditionalAnswer SF::UConditional::Evaluate(const FConditionalEvaluationContext& EvaluationContext)
 {
 	FConditionalDebugTrace* DebugTrace = EvaluationContext.TryGetDebugTrace();
-	if (DebugTrace)
-	{
-		DebugTrace->PushObjectToTest(*EvaluationContext.GetTestObject());
-	}
+	if (DebugTrace) DebugTrace->PushObjectToTest(*EvaluationContext.GetTestObject());
 	
 	TArray<UConditional*> ImmediateChildren = GetImmediateChildren();
 	if (!GetAllowedChildrenNumRange().Contains(ImmediateChildren.Num()))
 	{
 		const FConditionalAnswer& Answer = Conditional::Answer::Error::NumChildrenUnsupported();
-		DebugTrace->PushConditionalAnswer(Answer, *this);
+		if (DebugTrace) DebugTrace->PushConditionalAnswer(Answer, *this);
 		return Answer;
 	}
 	if (Algo::AnyOf(ImmediateChildren, [](auto* Conditional){ return !IsValid(Conditional); }))
 	{
 		const FConditionalAnswer& Answer = Conditional::Answer::Error::HasInvalidChild();
-		DebugTrace->PushConditionalAnswer(Answer, *this);
+		if (DebugTrace) DebugTrace->PushConditionalAnswer(Answer, *this);
 		return Answer;
 	}
 	if (!IsValid(EvaluationContext.GetTestObject()))
 	{
 		const FConditionalAnswer& Answer = Conditional::Answer::Error::InvalidTestObject();
-		DebugTrace->PushConditionalAnswer(Answer, *this);
+		if (DebugTrace) DebugTrace->PushConditionalAnswer(Answer, *this);
 		return Answer;
 	}
 	
@@ -140,11 +137,7 @@ SF::FConditionalAnswer SF::UConditional::Evaluate(const FConditionalEvaluationCo
 		}
 	}
 	
-	if (DebugTrace)
-	{
-		DebugTrace->PushConditionalAnswer(Answer, *this);
-	}
-	
+	if (DebugTrace) DebugTrace->PushConditionalAnswer(Answer, *this);
 	return Answer;
 }
 
