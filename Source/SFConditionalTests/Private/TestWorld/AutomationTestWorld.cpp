@@ -26,11 +26,15 @@ namespace WeekendUtils
 	{
 		const FString NewWorldName = "WeekendUtils_ScopedAutomationTestWorld_" + InWorldName;
 
-		// Create and initialize game instance
 		GameInstance = NewObject<UGameInstance>(GEngine);
-		GameInstance->InitializeStandalone(*NewWorldName); // -> indirectly calls GameInstance->Init();
-
-		World = GameInstance->GetWorld();
+		World = UWorld::CreateWorld(EWorldType::Game, false, *NewWorldName, nullptr, true, ERHIFeatureLevel::Num, nullptr, true);
+		World->AddToRoot();
+		FWorldContext& WorldContext = GEngine->CreateNewWorldContext(EWorldType::Game);
+		WorldContext.OwningGameInstance = GameInstance;
+		World->SetGameInstance(GameInstance);
+		WorldContext.SetCurrentWorld(World);
+		GameInstance->Init();
+		World->InitWorld();
 		World->GetWorldSettings()->DefaultGameMode = AGameModeBase::StaticClass();
 	}
 
